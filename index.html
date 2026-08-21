@@ -216,17 +216,17 @@
                 </button>
                 <button type="button" class="option-card option-card-compact" data-value="bp" role="checkbox" aria-checked="false">
                   <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-heart"/></svg></span>
-                  <span class="option-text"><span class="option-title">Hypertension</span></span>
+                  <span class="option-text"><span class="option-title">Hypertension</span><span class="option-desc">Elevated blood pressure, treated or untreated</span></span>
                   <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
                 </button>
                 <button type="button" class="option-card option-card-compact" data-value="cholesterol" role="checkbox" aria-checked="false">
                   <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-droplet"/></svg></span>
-                  <span class="option-text"><span class="option-title">Hyperlipidemia</span></span>
+                  <span class="option-text"><span class="option-title">Hyperlipidemia</span><span class="option-desc">Elevated LDL cholesterol or triglycerides</span></span>
                   <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
                 </button>
                 <button type="button" class="option-card option-card-compact" data-value="sleep-apnea" role="checkbox" aria-checked="false">
                   <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-moon"/></svg></span>
-                  <span class="option-text"><span class="option-title">Obstructive sleep apnea</span></span>
+                  <span class="option-text"><span class="option-title">Obstructive sleep apnea</span><span class="option-desc">Diagnosed or clinically suspected, with obesity</span></span>
                   <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
                 </button>
                 <button type="button" class="option-card option-card-compact" data-value="fatty-liver" role="checkbox" aria-checked="false">
@@ -236,7 +236,7 @@
                 </button>
                 <button type="button" class="option-card option-card-compact" data-value="ckd" role="checkbox" aria-checked="false">
                   <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-kidney"/></svg></span>
-                  <span class="option-text"><span class="option-title">Chronic kidney disease</span></span>
+                  <span class="option-text"><span class="option-title">Chronic kidney disease</span><span class="option-desc">Reduced kidney function or known CKD diagnosis</span></span>
                   <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
                 </button>
                 <button type="button" class="option-card option-card-compact option-card-none" data-value="none" role="checkbox" aria-checked="false">
@@ -246,7 +246,19 @@
               </div>
             </div>
             <div class="cta-bar">
-              <button type="button" class="btn btn-primary" data-continue disabled>See my options</button>
+              <button type="button" class="btn btn-primary" data-continue disabled>Review answers</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="review" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Review</p>
+              <h1 class="h2">Confirm before matching</h1>
+              <p class="sub">Tap any answer to change it.</p>
+              <div class="review-list" id="reviewList"></div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue>See my options</button>
             </div>
           </section>
 
@@ -255,20 +267,21 @@
               <p class="step-eyebrow">Results</p>
               <h1 class="h2">Options to consider for this patient</h1>
               <p class="sub" id="resultsSummary">Based on the inputs, here's how these GLP&#8209;1 options line up clinically.</p>
+              <div class="result-fallback-banner" id="resultFallbackBanner" hidden>No option is a strong match for this exact combination. The choices below are the closest available, and the reasons shown reflect partial matches only &mdash; review carefully.</div>
               <div class="result-list" id="resultList" aria-live="polite"></div>
               <p class="disclaimer">Reference only. This tool summarizes indications and trial evidence; it does not replace clinical judgment, contraindication and drug-interaction screening, or shared decision-making with the patient.</p>
-              <div class="references">
-                <p class="references-title">References</p>
+              <details class="references">
+                <summary class="references-title">References<svg class="icon icon-sm references-chevron"><use href="#i-chevron-right"/></svg></summary>
                 <ol class="reference-list">
                   <li>Moiz A, Filion KB, Toutounchi H, Tsoukas MA, Yu OHY, Peters TM, et al. Efficacy and safety of glucagon-like peptide-1 receptor agonists for weight loss among adults without diabetes: a systematic review of randomized controlled trials. Ann Intern Med. 2025;178(2):199&ndash;217. doi:<a href="https://doi.org/10.7326/ANNALS-24-01590" target="_blank" rel="noopener noreferrer">10.7326/ANNALS-24-01590</a></li>
                   <li>Yao H, Zhang A, Li D, Wu Y, Wang CZ, Wan JY, et al. Comparative effectiveness of GLP-1 receptor agonists on glycaemic control, body weight, and lipid profile for type 2 diabetes: systematic review and network meta-analysis. BMJ. 2024;384:e076410. doi:<a href="https://doi.org/10.1136/bmj-2023-076410" target="_blank" rel="noopener noreferrer">10.1136/bmj-2023-076410</a></li>
                   <li>Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313&ndash;24. doi:<a href="https://doi.org/10.1056/NEJMra2500106" target="_blank" rel="noopener noreferrer">10.1056/NEJMra2500106</a></li>
                 </ol>
-              </div>
+              </details>
             </div>
             <div class="cta-bar cta-bar-split">
               <button type="button" class="btn btn-primary" id="talkBtn">Discuss with patient</button>
-              <button type="button" class="btn btn-ghost" id="editBtn">Edit patient inputs</button>
+              <button type="button" class="btn btn-ghost" id="editBtn">Review &amp; edit answers</button>
             </div>
           </section>
 
@@ -282,6 +295,19 @@
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<div class="sheet" id="detailSheet" role="dialog" aria-modal="true" aria-labelledby="sheetName" hidden>
+  <div class="sheet-handle" aria-hidden="true"></div>
+  <button type="button" class="sheet-close" id="sheetClose" aria-label="Close">
+    <svg class="icon"><use href="#i-close"/></svg>
+  </button>
+  <div class="sheet-head">
+    <div class="sheet-name" id="sheetName"></div>
+    <div class="sheet-generic" id="sheetGeneric"></div>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+</div>
 
 <style>
   :root {
@@ -738,6 +764,45 @@
   }
   .option-card[aria-checked="true"] .option-indicator .icon-check { transform: scale(1); }
 
+  /* ---------- Review screen ---------- */
+  .review-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .review-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    width: 100%;
+    min-height: 44px;
+    padding: var(--sp-4);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .review-row:hover { border-color: var(--border-strong); }
+  .review-row:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .review-row-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .review-row-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .review-row-value { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+  .review-row-edit {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary-strong);
+  }
+  .review-row-edit .icon { width: 16px; height: 16px; }
+
   /* ---------- CTA bar ---------- */
   .cta-bar {
     flex-shrink: 0;
@@ -792,6 +857,20 @@
 
   /* ---------- Results ---------- */
   .results-inner { padding-top: var(--sp-2); }
+  .result-fallback-banner {
+    display: flex;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--danger);
+    background: var(--surface-sunken);
+    border-left: 3px solid var(--danger);
+    border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    padding: var(--sp-3) var(--sp-4);
+    margin-bottom: var(--sp-4);
+  }
+  .result-fallback-banner[hidden] {
+    display: none;
+  }
   .result-list { display: flex; flex-direction: column; gap: var(--sp-4); margin-bottom: var(--sp-5); }
   .result-card {
     background: var(--surface);
@@ -841,6 +920,31 @@
   }
   .result-form .icon { width: 14px; height: 14px; color: var(--primary); }
 
+  .result-strength {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    margin-top: var(--sp-3);
+  }
+  .result-strength-track {
+    flex: 1;
+    height: 5px;
+    border-radius: var(--r-full);
+    background: var(--surface-sunken);
+    overflow: hidden;
+  }
+  .result-strength-fill {
+    height: 100%;
+    border-radius: var(--r-full);
+    background: var(--border-strong);
+  }
+  .result-strength-label {
+    flex-shrink: 0;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
   .result-desc { font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); margin: var(--sp-3) 0; }
 
   .result-reasons { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-3); }
@@ -881,15 +985,36 @@
     margin-bottom: var(--sp-4);
   }
   .references-title {
-    margin: 0 0 var(--sp-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    margin: 0;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-tertiary);
+    cursor: pointer;
+    list-style: none;
+    -webkit-tap-highlight-color: transparent;
   }
+  .references-title::-webkit-details-marker { display: none; }
+  .references-title:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  .references-chevron {
+    width: 15px;
+    height: 15px;
+    color: var(--text-tertiary);
+    transform: rotate(0deg);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .references[open] .references-chevron { transform: rotate(90deg); }
   .reference-list {
-    margin: 0;
+    margin: var(--sp-3) 0 0;
     padding-left: 1.4em;
     display: flex;
     flex-direction: column;
@@ -935,6 +1060,101 @@
     z-index: 50;
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Drug detail sheet ---------- */
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 16, 14, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+    z-index: 70;
+  }
+  .sheet-backdrop.show { opacity: 1; pointer-events: auto; }
+
+  .sheet {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 100%);
+    width: min(430px, 100vw);
+    max-height: 82vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--surface);
+    border-radius: 24px 24px 0 0;
+    box-shadow: var(--shadow-2);
+    padding: var(--sp-3) var(--sp-5) calc(var(--sp-7) + env(safe-area-inset-bottom));
+    transition: transform var(--dur-slow) var(--ease-out);
+    z-index: 71;
+  }
+  .sheet.show { transform: translate(-50%, 0); }
+  .sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: var(--r-full);
+    background: var(--border-strong);
+    margin: var(--sp-2) auto var(--sp-3);
+  }
+  .sheet-close {
+    position: absolute;
+    top: var(--sp-3);
+    right: var(--sp-3);
+    width: 32px;
+    height: 32px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -6px -6px 0 0;
+    background: var(--surface-sunken);
+    border: none;
+    border-radius: var(--r-full);
+    color: var(--text-secondary);
+  }
+  .sheet-close .icon { width: 16px; height: 16px; }
+  .sheet-close:hover { background: var(--border); }
+  .sheet-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  .sheet-head { padding-right: var(--sp-8); margin-bottom: var(--sp-5); }
+  .sheet-name { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .sheet-generic { font-size: 13.5px; color: var(--text-secondary); margin-top: 2px; }
+
+  .sheet-section { margin-bottom: var(--sp-5); }
+  .sheet-section:last-child { margin-bottom: 0; }
+  .sheet-section-title {
+    margin: 0 0 var(--sp-2);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .sheet-section p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-primary);
+  }
+  .sheet-section ul {
+    margin: 0;
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .sheet-section ul li { font-size: 13.5px; line-height: 1.5; color: var(--text-primary); }
+  .sheet-section ul.sheet-section-notfor li { color: var(--danger); }
+  .sheet-note {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+    padding-top: var(--sp-3);
+    margin-top: var(--sp-5);
+  }
 
   /* ---------- Full-bleed real-device mode ----------
      Below phone-width viewports, drop the decorative mockup chrome (fake
@@ -987,9 +1207,10 @@
 (function () {
   "use strict";
 
-  var order = ["intro", "goal", "bmi", "diabetes", "delivery", "comorbidities", "results"];
+  var order = ["intro", "goal", "bmi", "diabetes", "delivery", "comorbidities", "review", "results"];
   var questionSteps = ["goal", "bmi", "diabetes", "delivery", "comorbidities"];
   var current = "intro";
+  var editReturnTo = null;
 
   var answers = {
     goal: null,
@@ -1037,6 +1258,10 @@
       progressLabel.textContent = "Step " + (qIndex + 1) + " of " + questionSteps.length;
       navProgress.setAttribute("aria-valuenow", String(qIndex + 1));
       navProgress.style.visibility = "visible";
+    } else if (name === "review") {
+      progressFill.style.width = "100%";
+      progressLabel.textContent = "Review";
+      navProgress.style.visibility = "visible";
     } else if (name === "results") {
       progressFill.style.width = "100%";
       progressLabel.textContent = "Complete";
@@ -1049,7 +1274,12 @@
 
     backBtn.hidden = name === "intro";
 
+    if (name === "review") { renderReview(); }
     if (name === "results") { renderResults(); }
+  }
+
+  function goToScreen(name) {
+    if (order.indexOf(name) > -1) setScreen(name);
   }
 
   function goRelative(delta) {
@@ -1058,9 +1288,9 @@
     if (next) setScreen(next);
   }
 
-  backBtn.addEventListener("click", function () { goRelative(-1); });
+  backBtn.addEventListener("click", function () { editReturnTo = null; goRelative(-1); });
   document.getElementById("startBtn").addEventListener("click", function () { goRelative(1); });
-  document.getElementById("editBtn").addEventListener("click", function () { setScreen("goal"); syncAllSelections(); });
+  document.getElementById("editBtn").addEventListener("click", function () { editReturnTo = null; setScreen("review"); syncAllSelections(); });
   document.getElementById("talkBtn").addEventListener("click", function () { showToast("Marked for discussion with patient."); });
 
   function syncAllSelections() {
@@ -1122,8 +1352,58 @@
   });
 
   Array.prototype.forEach.call(document.querySelectorAll("[data-continue]"), function (btn) {
-    btn.addEventListener("click", function () { goRelative(1); });
+    btn.addEventListener("click", function () {
+      if (editReturnTo) {
+        var target = editReturnTo;
+        editReturnTo = null;
+        setScreen(target);
+      } else {
+        goRelative(1);
+      }
+    });
   });
+
+  /* ---------------- Review screen ---------------- */
+
+  var GOAL_LABEL = { "weight-loss": "Weight loss", "diabetes": "Type 2 diabetes management", "both": "Both weight loss and diabetes" };
+  var BMI_LABEL = { "under25": "Under 25", "25-29": "25–29.9 (overweight)", "30-34": "30–34.9 (obesity class I)", "35plus": "35 and above (obesity class II+)", "unsure": "Not yet calculated" };
+  var DIABETES_LABEL = { "none": "No", "prediabetes": "Prediabetes", "type2": "Yes, type 2 diabetes" };
+  var DELIVERY_LABEL = { "injection": "Weekly injection", "oral": "Daily oral pill", "either": "No preference" };
+  var COMORBID_LABEL = { "cardiovascular": "ASCVD", "bp": "Hypertension", "cholesterol": "Hyperlipidemia", "sleep-apnea": "Obstructive sleep apnea", "fatty-liver": "MASLD", "ckd": "Chronic kidney disease", "none": "None of these" };
+
+  var REVIEW_ROWS = [
+    { step: "goal", label: "Treatment goal", value: function () { return GOAL_LABEL[answers.goal] || "—"; } },
+    { step: "bmi", label: "BMI range", value: function () { return BMI_LABEL[answers.bmiRange] || "—"; } },
+    { step: "diabetes", label: "Type 2 diabetes", value: function () { return DIABETES_LABEL[answers.diabetesStatus] || "—"; } },
+    { step: "delivery", label: "Delivery preference", value: function () { return DELIVERY_LABEL[answers.delivery] || "—"; } },
+    { step: "comorbidities", label: "Health history", value: function () {
+        return answers.comorbidities.length
+          ? answers.comorbidities.map(function (c) { return COMORBID_LABEL[c] || c; }).join(", ")
+          : "—";
+      } }
+  ];
+
+  function renderReview() {
+    var list = document.getElementById("reviewList");
+    list.innerHTML = "";
+    REVIEW_ROWS.forEach(function (row) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "review-row";
+      btn.setAttribute("data-step", row.step);
+      btn.innerHTML =
+        '<span class="review-row-text">' +
+          '<span class="review-row-label">' + row.label + '</span>' +
+          '<span class="review-row-value">' + row.value() + '</span>' +
+        '</span>' +
+        '<span class="review-row-edit">Edit<svg class="icon"><use href="#i-chevron-right"/></svg></span>';
+      btn.addEventListener("click", function () {
+        editReturnTo = "review";
+        goToScreen(row.step);
+      });
+      list.appendChild(btn);
+    });
+  }
 
   /* ---------------- Matching logic ---------------- */
 
@@ -1139,7 +1419,10 @@
       ckdBenefit: false,
       liverBenefit: true,
       rankedTopA1c: false,
-      desc: "Once-weekly injection approved for chronic weight management, and to help lower cardiovascular risk in adults with heart disease."
+      desc: "Once-weekly injection approved for chronic weight management, and to help lower cardiovascular risk in adults with heart disease.",
+      dosing: "Starts at 0.25 mg weekly for 4 weeks (dose-escalation only, not effective for weight loss), then increases every 4 weeks toward a maintenance dose of 2.4 mg weekly.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Injection site reactions", "Fatigue"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of pancreatitis (use caution)"]
     },
     {
       id: "zepbound",
@@ -1152,7 +1435,10 @@
       ckdBenefit: false,
       liverBenefit: true,
       rankedTopA1c: false,
-      desc: "Once-weekly injection approved for chronic weight management, and for moderate-to-severe obstructive sleep apnea with obesity."
+      desc: "Once-weekly injection approved for chronic weight management, and for moderate-to-severe obstructive sleep apnea with obesity.",
+      dosing: "Starts at 2.5 mg weekly for 4 weeks (dose-escalation only), then increases in 2.5 mg increments every 4 weeks as tolerated, toward a maintenance dose of 5–15 mg weekly.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Injection site reactions", "Fatigue"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to tirzepatide", "Pregnancy", "History of pancreatitis (use caution)"]
     },
     {
       id: "ozempic",
@@ -1165,7 +1451,10 @@
       ckdBenefit: true,
       liverBenefit: false,
       rankedTopA1c: false,
-      desc: "Once-weekly injection approved for type 2 diabetes, to help lower cardiovascular risk in adults with known heart disease, and to help slow chronic kidney disease."
+      desc: "Once-weekly injection approved for type 2 diabetes, to help lower cardiovascular risk in adults with known heart disease, and to help slow chronic kidney disease.",
+      dosing: "Starts at 0.25 mg weekly for 4 weeks, then increases every 4 weeks toward a typical maintenance dose of 1–2 mg weekly.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Injection site reactions", "Risk of hypoglycemia if combined with insulin or sulfonylureas"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of diabetic retinopathy (monitor closely if present)"]
     },
     {
       id: "mounjaro",
@@ -1178,7 +1467,10 @@
       ckdBenefit: false,
       liverBenefit: false,
       rankedTopA1c: true,
-      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control."
+      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control.",
+      dosing: "Starts at 2.5 mg weekly for 4 weeks, then increases in 2.5 mg increments every 4 weeks as tolerated, toward a maintenance dose of 5–15 mg weekly.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Injection site reactions", "Risk of hypoglycemia if combined with insulin or sulfonylureas"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to tirzepatide", "Pregnancy", "History of diabetic retinopathy (monitor closely if present)"]
     },
     {
       id: "rybelsus",
@@ -1191,7 +1483,10 @@
       ckdBenefit: false,
       liverBenefit: false,
       rankedTopA1c: false,
-      desc: "The only oral GLP-1 option available today — a once-daily pill approved for type 2 diabetes, also shown to help lower cardiovascular risk."
+      desc: "The only oral GLP-1 option available today — a once-daily pill approved for type 2 diabetes, also shown to help lower cardiovascular risk.",
+      dosing: "Starts at 3 mg daily for 30 days (dose-escalation only), then 7 mg daily; may increase to 14 mg daily after at least 30 days if additional glycemic control is needed. Taken on an empty stomach with no more than 4 oz of water, at least 30 minutes before food, other medications, or drink.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Abdominal pain"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of pancreatitis (use caution)"]
     }
   ];
 
@@ -1315,6 +1610,7 @@
   function renderResults() {
     var list = document.getElementById("resultList");
     var summary = document.getElementById("resultsSummary");
+    var fallbackBanner = document.getElementById("resultFallbackBanner");
     list.innerHTML = "";
 
     var scored = CATALOG.map(function (opt) {
@@ -1324,27 +1620,43 @@
       .sort(function (a, b) { return b.score - a.score; })
       .slice(0, 3);
 
-    if (scored.length === 0) {
+    var isFallback = scored.length === 0;
+    if (isFallback) {
       scored = CATALOG.map(function (opt) {
         var r = scoreOption(opt, answers);
         return { opt: opt, score: r.score, reasons: r.reasons };
       }).sort(function (a, b) { return b.score - a.score; }).slice(0, 2);
     }
 
+    fallbackBanner.hidden = !isFallback;
     summary.textContent = "Based on the inputs, here" + "'" + "s how these GLP‑1 options line up clinically.";
+
+    var topScore = scored.length ? scored[0].score : 0;
 
     scored.forEach(function (item, i) {
       var opt = item.opt;
       var card = document.createElement("article");
       card.className = "result-card";
 
-      var badge = i === 0
+      var badge = (i === 0 && !isFallback)
         ? '<span class="result-badge"><span class="result-badge-dot"></span>Best match</span>'
         : "";
 
       var reasons = item.reasons.length
         ? item.reasons
         : ["Limited direct matches — weigh against full clinical context"];
+
+      var strength = "";
+      if (!isFallback && i > 0 && topScore > 0) {
+        var gap = topScore - item.score;
+        var label = gap <= 3 ? "Close alternative" : "Also approved";
+        var pct = Math.max(15, Math.min(100, Math.round((item.score / topScore) * 100)));
+        strength =
+          '<div class="result-strength">' +
+            '<div class="result-strength-track"><div class="result-strength-fill" style="width:' + pct + '%"></div></div>' +
+            '<span class="result-strength-label">' + label + '</span>' +
+          '</div>';
+      }
 
       card.innerHTML =
         badge +
@@ -1355,13 +1667,87 @@
           '</div>' +
           '<span class="result-form"><svg class="icon"><use href="#' + iconFor(opt.form) + '"/></svg>' + (opt.form === "oral" ? "Daily pill" : "Weekly injection") + '</span>' +
         '</div>' +
+        strength +
         '<p class="result-desc">' + opt.desc + '</p>' +
         '<div class="result-reasons">' + reasons.map(function (r) { return '<span class="reason-chip">' + r + '</span>'; }).join("") + '</div>' +
-        '<button type="button" class="result-learn">Learn more<svg class="icon"><use href="#i-chevron-right"/></svg></button>';
+        '<button type="button" class="result-learn" data-drug-id="' + opt.id + '">Learn more<svg class="icon"><use href="#i-chevron-right"/></svg></button>';
 
       list.appendChild(card);
     });
   }
+
+  /* ---------------- Drug detail sheet ---------------- */
+
+  var sheetBackdrop = document.getElementById("sheetBackdrop");
+  var detailSheet = document.getElementById("detailSheet");
+  var sheetName = document.getElementById("sheetName");
+  var sheetGeneric = document.getElementById("sheetGeneric");
+  var sheetBody = document.getElementById("sheetBody");
+  var sheetReturnFocus = null;
+
+  function catalogById(id) {
+    for (var i = 0; i < CATALOG.length; i++) {
+      if (CATALOG[i].id === id) return CATALOG[i];
+    }
+    return null;
+  }
+
+  function openSheet(id, triggerEl) {
+    var opt = catalogById(id);
+    if (!opt) return;
+    sheetReturnFocus = triggerEl || null;
+    sheetName.textContent = opt.brand;
+    sheetGeneric.textContent = opt.generic + " · " + (opt.form === "oral" ? "Daily pill" : "Weekly injection");
+    sheetBody.innerHTML =
+      '<div class="sheet-section">' +
+        '<p class="sheet-section-title">What it is</p>' +
+        '<p>' + opt.desc + '</p>' +
+      '</div>' +
+      '<div class="sheet-section">' +
+        '<p class="sheet-section-title">Typical dosing</p>' +
+        '<p>' + opt.dosing + '</p>' +
+      '</div>' +
+      '<div class="sheet-section">' +
+        '<p class="sheet-section-title">Common side effects</p>' +
+        '<ul>' + opt.sideEffects.map(function (s) { return '<li>' + s + '</li>'; }).join("") + '</ul>' +
+      '</div>' +
+      '<div class="sheet-section">' +
+        '<p class="sheet-section-title">Not appropriate if</p>' +
+        '<ul class="sheet-section-notfor">' + opt.notFor.map(function (s) { return '<li>' + s + '</li>'; }).join("") + '</ul>' +
+      '</div>' +
+      '<p class="sheet-note">General reference only, not full prescribing information. Confirm current labeling, dosing, and contraindications before prescribing.</p>';
+
+    sheetBackdrop.hidden = false;
+    detailSheet.hidden = false;
+    // Force reflow so the show class transition plays.
+    void detailSheet.offsetHeight;
+    sheetBackdrop.classList.add("show");
+    detailSheet.classList.add("show");
+    document.getElementById("sheetClose").focus();
+  }
+
+  function closeSheet() {
+    if (detailSheet.hidden) return;
+    sheetBackdrop.classList.remove("show");
+    detailSheet.classList.remove("show");
+    window.setTimeout(function () {
+      sheetBackdrop.hidden = true;
+      detailSheet.hidden = true;
+    }, 260);
+    if (sheetReturnFocus) { try { sheetReturnFocus.focus(); } catch (e) {} }
+    sheetReturnFocus = null;
+  }
+
+  document.getElementById("resultList").addEventListener("click", function (e) {
+    var btn = e.target.closest(".result-learn");
+    if (!btn) return;
+    openSheet(btn.getAttribute("data-drug-id"), btn);
+  });
+  document.getElementById("sheetClose").addEventListener("click", closeSheet);
+  sheetBackdrop.addEventListener("click", closeSheet);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !detailSheet.hidden) closeSheet();
+  });
 
   setScreen("intro");
 })();

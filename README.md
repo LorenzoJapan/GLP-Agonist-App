@@ -6,9 +6,9 @@ A clinician-facing iOS-style tool that matches a patient's profile — treatment
 
 ## What it does
 
-The app walks through a five-step intake (goal, BMI range, diabetes status, delivery preference, comorbidities), then scores five FDA-approved GLP-1 options — Wegovy, Zepbound, Ozempic, Mounjaro, and Rybelsus — against the inputs. Each result surfaces the specific approved indications and trial findings behind the match (for example, semaglutide's cardiovascular-risk-reduction indication in ASCVD, or semaglutide's chronic-kidney-disease indication in type 2 diabetes), not just a bare recommendation.
+The app walks through a five-step intake (goal, BMI range, diabetes status, delivery preference, comorbidities), then a review screen summarizing all five answers — tap any one to jump straight back and change it, without re-clicking through the whole flow — before scoring five FDA-approved GLP-1 options — Wegovy, Zepbound, Ozempic, Mounjaro, and Rybelsus — against the inputs. Each result surfaces the specific approved indications and trial findings behind the match (for example, semaglutide's cardiovascular-risk-reduction indication in ASCVD, or semaglutide's chronic-kidney-disease indication in type 2 diabetes), a relative "close alternative" indicator against the top pick, and a "Learn more" panel with typical dosing, common side effects, and contraindications for that option. A banner flags the rare combination where no option is a strong match, so a low-confidence result never looks identical to a confident one.
 
-It is decision support only. It does not replace clinical judgment, contraindication and drug-interaction screening, or shared decision-making with the patient — the app says so on its own results screen, along with numbered references to the trial and meta-analysis literature it draws on.
+It is decision support only. It does not replace clinical judgment, contraindication and drug-interaction screening, or shared decision-making with the patient — the app says so on its own results screen, along with collapsible, numbered references to the trial and meta-analysis literature it draws on.
 
 ## Running it
 
