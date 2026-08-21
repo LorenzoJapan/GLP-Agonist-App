@@ -1,0 +1,1360 @@
+<title>GLP-1 Match</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M7 7h10M4.5 7L3 12a2.5 2.5 0 005 0L6.5 7M19.5 7L18 12a2.5 2.5 0 005 0L21.5 7M8 21h8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 3s6.5 7.1 6.5 11.5a6.5 6.5 0 01-13 0C5.5 10.1 12 3 12 3z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-10-9.4C.6 7.6 2.4 4 6 4c2.1 0 3.6 1.1 6 3.5C14.4 5.1 15.9 4 18 4c3.6 0 5.4 3.6 4 7.1-2.5 4.8-10 9.4-10 9.4z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-syringe" viewBox="0 0 24 24"><path d="M20 4l-3 3M17.5 2.5l4 4M14 8l2 2M3 21l4.5-1.2L18 9.3 14.7 6 4.2 16.5 3 21zM10.5 4.5l9 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24"><path d="M4.5 19.5a5 5 0 010-7.07l7.93-7.93a5 5 0 117.07 7.07l-7.93 7.93a5 5 0 01-7.07 0zM9 6l9 9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9m4 0h3M4 12h3m4 0h9M4 18h13m4 0h-1M11 4v4M17 10v4M8 16v4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-kidney" viewBox="0 0 24 24"><path d="M9 3c-3 0-5 2.5-5 6 0 5 3 9 3 12h2c0-2-2-4-2-8 0-3 2-4 4-4s3 1.5 3 4-1 3-1 6h2c1-4 3-6 3-10 0-3.5-2-6-5-6-1.2 0-2 .5-2.5 1.2C10.5 3.4 9.8 3 9 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4 20C4 10 12 4 20 4c0 8-6 16-16 16zm0 0c2-4 5-7 9-9" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 18 12"><rect x="0" y="7" width="3" height="5" rx="0.75" fill="currentColor"/><rect x="5" y="5" width="3" height="7" rx="0.75" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="0.75" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="0.75" fill="currentColor"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 18 13"><path d="M9 12.4a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6zM4.8 7.6a6 6 0 018.4 0M2 4.6a10 10 0 0114 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-battery" viewBox="0 0 25 12"><rect x="0.75" y="0.75" width="20.5" height="10.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1"/><rect x="2.25" y="2.25" width="16" height="7.5" rx="1.3" fill="currentColor"/><rect x="22" y="4" width="2" height="4" rx="1" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <p class="eyebrow">GLP&#8209;1 OPTIONS &middot; PROVIDER DECISION SUPPORT</p>
+
+  <div class="stage">
+    <div class="phone" role="application" aria-label="GLP-1 Match provider tool prototype">
+      <div class="phone-notch" aria-hidden="true"></div>
+
+      <div class="app">
+        <div class="status-bar" aria-hidden="true">
+          <span class="status-time">9:41</span>
+          <span class="status-icons">
+            <svg class="icon icon-status"><use href="#i-signal"/></svg>
+            <svg class="icon icon-status"><use href="#i-wifi"/></svg>
+            <svg class="icon icon-status icon-battery"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <header class="app-nav">
+          <button type="button" class="nav-back" id="backBtn" aria-label="Go back">
+            <svg class="icon"><use href="#i-chevron-left"/></svg>
+          </button>
+          <div class="nav-progress" id="navProgress" role="progressbar" aria-label="Intake progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+            <div class="nav-progress-track"><div class="nav-progress-fill" id="progressFill"></div></div>
+            <span class="nav-progress-label" id="progressLabel"></span>
+          </div>
+          <div class="nav-spacer" aria-hidden="true"></div>
+        </header>
+
+        <div class="screens" id="screens">
+
+          <section class="screen" data-screen="intro" aria-hidden="false">
+            <div class="screen-inner intro-inner">
+              <div class="intro-mark" aria-hidden="true">
+                <svg class="icon icon-xl"><use href="#i-leaf"/></svg>
+              </div>
+              <h1 class="h1">Match your patient<br/>to a GLP&#8209;1 option</h1>
+              <p class="sub">Enter five quick data points from the chart. We'll surface which GLP&#8209;1 options fit the clinical picture &mdash; and the trial evidence behind each one.</p>
+              <ul class="intro-points">
+                <li><svg class="icon icon-sm"><use href="#i-check"/></svg> Takes about 2 minutes</li>
+                <li><svg class="icon icon-sm"><use href="#i-check"/></svg> Grounded in current RCT and meta-analysis evidence</li>
+                <li><svg class="icon icon-sm"><use href="#i-check"/></svg> Decision support only &mdash; you make the call</li>
+              </ul>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" id="startBtn">Get started</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="goal" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Step 1 of 5</p>
+              <h1 class="h2">What's the primary treatment goal?</h1>
+              <p class="sub">This determines which approved indications apply.</p>
+              <div class="option-list" role="radiogroup" aria-label="Primary treatment goal" data-field="goal">
+                <button type="button" class="option-card" data-value="weight-loss" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-scale"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">Weight loss</span>
+                    <span class="option-desc">Chronic weight management is the primary goal</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card" data-value="diabetes" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-droplet"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">Type 2 diabetes management</span>
+                    <span class="option-desc">Glycemic (A1c) control is the primary goal</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card" data-value="both" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-heart"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">Both weight loss and diabetes</span>
+                    <span class="option-desc">Plan should address both together</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+              </div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue disabled>Continue</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="bmi" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Step 2 of 5</p>
+              <h1 class="h2">What's the patient's BMI range?</h1>
+              <p class="sub">GLP&#8209;1 options for weight management are typically indicated above certain BMI thresholds. Use the most recent chart value.</p>
+              <div class="option-list" role="radiogroup" aria-label="Patient BMI range" data-field="bmiRange">
+                <button type="button" class="option-card option-card-compact" data-value="under25" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">Under 25</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="25-29" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">25&ndash;29.9</span><span class="option-desc">Overweight range</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="30-34" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">30&ndash;34.9</span><span class="option-desc">Obesity class I</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="35plus" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">35 and above</span><span class="option-desc">Obesity class II or higher</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="unsure" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">Not yet calculated</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+              </div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue disabled>Continue</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="diabetes" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Step 3 of 5</p>
+              <h1 class="h2">Does the patient have type 2 diabetes?</h1>
+              <p class="sub">Some GLP&#8209;1 options are approved specifically for glycemic management.</p>
+              <div class="option-list" role="radiogroup" aria-label="Patient type 2 diabetes status" data-field="diabetesStatus">
+                <button type="button" class="option-card option-card-compact" data-value="none" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">No</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="prediabetes" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">Prediabetes</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="type2" role="radio" aria-checked="false">
+                  <span class="option-text"><span class="option-title">Yes, type 2 diabetes</span></span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+              </div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue disabled>Continue</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="delivery" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Step 4 of 5</p>
+              <h1 class="h2">What's the patient's delivery preference?</h1>
+              <p class="sub">Most GLP&#8209;1 options are a once&#8209;weekly injection; one is a daily pill.</p>
+              <div class="option-list" role="radiogroup" aria-label="Patient delivery preference" data-field="delivery">
+                <button type="button" class="option-card" data-value="injection" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-syringe"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">Weekly injection</span>
+                    <span class="option-desc">Self-administered, once a week</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card" data-value="oral" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-pill"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">Daily oral pill</span>
+                    <span class="option-desc">No needles &mdash; taken by mouth each morning</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card" data-value="either" role="radio" aria-checked="false">
+                  <span class="option-icon"><svg class="icon"><use href="#i-sliders"/></svg></span>
+                  <span class="option-text">
+                    <span class="option-title">No preference</span>
+                    <span class="option-desc">Show the best clinical fit either way</span>
+                  </span>
+                  <span class="option-indicator" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+              </div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue disabled>Continue</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="comorbidities" aria-hidden="true">
+            <div class="screen-inner">
+              <p class="step-eyebrow">Step 5 of 5</p>
+              <h1 class="h2">Any of the following in the chart?</h1>
+              <p class="sub">Select all that apply. Some options carry added, evidence-based benefits worth factoring in.</p>
+              <div class="option-list" role="group" aria-label="Patient health history" data-field="comorbidities" data-multi="true">
+                <button type="button" class="option-card option-card-compact" data-value="cardiovascular" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-pulse"/></svg></span>
+                  <span class="option-text"><span class="option-title">ASCVD</span><span class="option-desc">Established atherosclerotic cardiovascular disease</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="bp" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-heart"/></svg></span>
+                  <span class="option-text"><span class="option-title">Hypertension</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="cholesterol" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-droplet"/></svg></span>
+                  <span class="option-text"><span class="option-title">Hyperlipidemia</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="sleep-apnea" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-moon"/></svg></span>
+                  <span class="option-text"><span class="option-title">Obstructive sleep apnea</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="fatty-liver" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-shield"/></svg></span>
+                  <span class="option-text"><span class="option-title">MASLD</span><span class="option-desc">Metabolic dysfunction-associated steatotic liver disease</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact" data-value="ckd" role="checkbox" aria-checked="false">
+                  <span class="option-icon option-icon-sm"><svg class="icon"><use href="#i-kidney"/></svg></span>
+                  <span class="option-text"><span class="option-title">Chronic kidney disease</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+                <button type="button" class="option-card option-card-compact option-card-none" data-value="none" role="checkbox" aria-checked="false">
+                  <span class="option-text"><span class="option-title">None of these</span></span>
+                  <span class="option-indicator option-indicator-check" aria-hidden="true"><svg class="icon icon-check"><use href="#i-check"/></svg></span>
+                </button>
+              </div>
+            </div>
+            <div class="cta-bar">
+              <button type="button" class="btn btn-primary" data-continue disabled>See my options</button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="results" aria-hidden="true">
+            <div class="screen-inner results-inner">
+              <p class="step-eyebrow">Results</p>
+              <h1 class="h2">Options to consider for this patient</h1>
+              <p class="sub" id="resultsSummary">Based on the inputs, here's how these GLP&#8209;1 options line up clinically.</p>
+              <div class="result-list" id="resultList" aria-live="polite"></div>
+              <p class="disclaimer">Reference only. This tool summarizes indications and trial evidence; it does not replace clinical judgment, contraindication and drug-interaction screening, or shared decision-making with the patient.</p>
+              <div class="references">
+                <p class="references-title">References</p>
+                <ol class="reference-list">
+                  <li>Moiz A, Filion KB, Toutounchi H, Tsoukas MA, Yu OHY, Peters TM, et al. Efficacy and safety of glucagon-like peptide-1 receptor agonists for weight loss among adults without diabetes: a systematic review of randomized controlled trials. Ann Intern Med. 2025;178(2):199&ndash;217. doi:<a href="https://doi.org/10.7326/ANNALS-24-01590" target="_blank" rel="noopener noreferrer">10.7326/ANNALS-24-01590</a></li>
+                  <li>Yao H, Zhang A, Li D, Wu Y, Wang CZ, Wan JY, et al. Comparative effectiveness of GLP-1 receptor agonists on glycaemic control, body weight, and lipid profile for type 2 diabetes: systematic review and network meta-analysis. BMJ. 2024;384:e076410. doi:<a href="https://doi.org/10.1136/bmj-2023-076410" target="_blank" rel="noopener noreferrer">10.1136/bmj-2023-076410</a></li>
+                  <li>Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313&ndash;24. doi:<a href="https://doi.org/10.1056/NEJMra2500106" target="_blank" rel="noopener noreferrer">10.1056/NEJMra2500106</a></li>
+                </ol>
+              </div>
+            </div>
+            <div class="cta-bar cta-bar-split">
+              <button type="button" class="btn btn-primary" id="talkBtn">Discuss with patient</button>
+              <button type="button" class="btn btn-ghost" id="editBtn">Edit patient inputs</button>
+            </div>
+          </section>
+
+        </div>
+      </div>
+      <div class="home-indicator" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <p class="page-caption">Sized for iPhone 13 Pro Max and newer &middot; fills the screen edge-to-edge on a real device</p>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FAFAF9;
+    --page-bg: #F3F6F4;
+    --surface: #FFFFFF;
+    --surface-sunken: #F1F5F3;
+    --surface-selected: #E4F1EC;
+    --primary: #1F6F5C;
+    --primary-strong: #15574A;
+    --on-primary: #FFFFFF;
+    --accent-warm: #C1663A;
+    --accent-warm-text: #9C4B28;
+    --accent-warm-tint: #F7E7DE;
+    --text-primary: #1C2422;
+    --text-secondary: #52625E;
+    --text-tertiary: #5C6F6A;
+    --on-primary-text: #FFFFFF;
+    --border: #E2E8E5;
+    --border-strong: #CBD6D1;
+    --danger: #A23E2C;
+    --frame-bezel: #101314;
+    --frame-glass: rgba(255,255,255,0.5);
+    --shadow-1: 0 1px 2px rgba(20,28,26,0.06);
+    --shadow-2: 0 10px 30px rgba(20,28,26,0.10);
+    --shadow-phone: 0 30px 60px -20px rgba(16,22,20,0.35), 0 10px 20px -10px rgba(16,22,20,0.20);
+
+    --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 22px;
+    --r-full: 999px;
+
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-7: 28px; --sp-8: 32px;
+
+    --dur-fast: 140ms;
+    --dur-base: 260ms;
+    --dur-slow: 420ms;
+    --ease: cubic-bezier(.4,0,.2,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #0E1613;
+      --page-bg: #0A0F0D;
+      --surface: #17211E;
+      --surface-sunken: #121A18;
+      --surface-selected: #1C352C;
+      --primary: #54C7A7;
+      --primary-strong: #82DEC3;
+      --on-primary: #08130F;
+      --accent-warm: #E39468;
+      --accent-warm-text: #E39468;
+      --accent-warm-tint: #2E211A;
+      --text-primary: #EEF4F2;
+      --text-secondary: #A4B7B1;
+      --text-tertiary: #778883;
+      --on-primary-text: #08130F;
+      --border: #26332F;
+      --border-strong: #34443F;
+      --danger: #E89586;
+      --frame-bezel: #000000;
+      --frame-glass: rgba(255,255,255,0.06);
+      --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-2: 0 10px 30px rgba(0,0,0,0.5);
+      --shadow-phone: 0 30px 60px -20px rgba(0,0,0,0.7), 0 10px 20px -10px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0E1613;
+    --page-bg: #0A0F0D;
+    --surface: #17211E;
+    --surface-sunken: #121A18;
+    --surface-selected: #1C352C;
+    --primary: #54C7A7;
+    --primary-strong: #82DEC3;
+    --on-primary: #08130F;
+    --accent-warm: #E39468;
+    --accent-warm-text: #E39468;
+    --accent-warm-tint: #2E211A;
+    --text-primary: #EEF4F2;
+    --text-secondary: #A4B7B1;
+    --text-tertiary: #778883;
+    --on-primary-text: #08130F;
+    --border: #26332F;
+    --border-strong: #34443F;
+    --danger: #E89586;
+    --frame-bezel: #000000;
+    --frame-glass: rgba(255,255,255,0.06);
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-2: 0 10px 30px rgba(0,0,0,0.5);
+    --shadow-phone: 0 30px 60px -20px rgba(0,0,0,0.7), 0 10px 20px -10px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page-bg);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--sp-5);
+    padding: clamp(20px, 4vh, 48px) 16px;
+    width: 100%;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    color: var(--text-tertiary);
+    text-align: center;
+  }
+
+  .page-caption {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--text-tertiary);
+    text-align: center;
+    max-width: 340px;
+  }
+
+  .stage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ---------- Phone frame ----------
+     Sized to the iPhone 13 Pro Max / 14+ Pro Max class (428–430 × 926–932pt).
+     On an actual phone-width viewport (see full-bleed override below), this
+     decorative mockup is replaced by the real device's own chrome. */
+  .phone {
+    position: relative;
+    width: min(430px, 92vw);
+    height: min(932px, 86vh, 92vw * 932 / 430);
+    background: var(--frame-bezel);
+    border-radius: 56px;
+    padding: 14px;
+    box-shadow: var(--shadow-phone);
+  }
+
+  .phone::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 56px;
+    padding: 1px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.25), rgba(255,255,255,0));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 126px;
+    height: 37px;
+    background: var(--frame-bezel);
+    border-radius: 20px;
+    z-index: 5;
+  }
+
+  .app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg);
+    border-radius: 44px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 26px 4px;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+  .status-time { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .status-icons { display: flex; align-items: center; gap: 5px; }
+  .icon-status { width: 17px; height: 12px; color: var(--text-primary); }
+  .icon-battery { width: 25px; height: 12px; }
+
+  .home-indicator {
+    position: absolute;
+    bottom: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 5px;
+    border-radius: var(--r-full);
+    background: var(--frame-bezel);
+    opacity: 0.9;
+  }
+  @media (prefers-color-scheme: dark) {
+    .home-indicator { background: #cfd6d3; opacity: 0.9; }
+  }
+  :root[data-theme="dark"] .home-indicator { background: #cfd6d3; opacity: 0.9; }
+
+  /* ---------- Nav / progress ---------- */
+  .app-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: var(--sp-2) var(--sp-4) var(--sp-3);
+    flex-shrink: 0;
+  }
+  .nav-back {
+    width: 40px;
+    height: 40px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    border-radius: var(--r-full);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .nav-back:hover { background: var(--surface-sunken); }
+  .nav-back:active { transform: scale(0.92); }
+  .nav-back[hidden] { visibility: hidden; }
+  .nav-back .icon { width: 22px; height: 22px; }
+
+  .nav-progress { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .nav-progress-track {
+    height: 5px;
+    border-radius: var(--r-full);
+    background: var(--surface-sunken);
+    overflow: hidden;
+  }
+  .nav-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--primary);
+    border-radius: var(--r-full);
+    transition: width var(--dur-slow) var(--ease-out);
+  }
+  .nav-progress-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+  }
+  .nav-spacer { width: 44px; flex-shrink: 0; }
+
+  /* ---------- Screens ---------- */
+  .screens {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+  }
+  .screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    pointer-events: none;
+    visibility: hidden;
+  }
+  .screen.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+  }
+  .screen-inner {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--sp-2) var(--sp-5) var(--sp-5);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .step-eyebrow {
+    margin: 0 0 var(--sp-2);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--primary);
+    text-transform: uppercase;
+  }
+  .h1 {
+    margin: 0 0 var(--sp-3);
+    font-size: 28px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .h2 {
+    margin: 0 0 var(--sp-2);
+    font-size: 23px;
+    line-height: 1.22;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .sub {
+    margin: 0 0 var(--sp-5);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: 34ch;
+  }
+
+  .intro-inner { display: flex; flex-direction: column; padding-top: var(--sp-6); }
+  .intro-mark {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--r-md);
+    background: var(--surface-selected);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--sp-5);
+  }
+  .icon-xl { width: 28px; height: 28px; }
+  .intro-points {
+    list-style: none;
+    margin: var(--sp-2) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+  .intro-points li {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    font-size: 14.5px;
+    color: var(--text-secondary);
+  }
+  .intro-points .icon-sm {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    color: var(--primary);
+    background: var(--surface-selected);
+    border-radius: var(--r-full);
+    padding: 3px;
+  }
+
+  /* ---------- Option cards ---------- */
+  .option-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+  }
+  .option-card {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    width: 100%;
+    min-height: 44px;
+    padding: var(--sp-4);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-md);
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-1);
+    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .option-card:hover { border-color: var(--border-strong); }
+  .option-card:active { transform: scale(0.985); }
+  .option-card:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  .option-card[aria-checked="true"] {
+    border-color: var(--primary);
+    background: var(--surface-selected);
+  }
+  .option-card-compact { padding: var(--sp-3) var(--sp-4); }
+  .option-card-none { border-style: dashed; }
+
+  .option-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: var(--r-sm);
+    background: var(--surface-sunken);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--dur-fast) var(--ease);
+  }
+  .option-icon-sm { width: 34px; height: 34px; min-width: 34px; }
+  .option-icon .icon { width: 21px; height: 21px; }
+  .option-icon-sm .icon { width: 17px; height: 17px; }
+  .option-card[aria-checked="true"] .option-icon { background: var(--surface); }
+
+  .option-text { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .option-title { font-size: 15px; font-weight: 600; letter-spacing: -0.005em; }
+  .option-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+  .option-indicator {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: var(--r-full);
+    border: 1.5px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    background: var(--surface);
+    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+  .option-indicator-check { border-radius: var(--r-sm); }
+  .option-indicator .icon-check {
+    width: 14px;
+    height: 14px;
+    transform: scale(0);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .option-card[aria-checked="true"] .option-indicator {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--on-primary);
+  }
+  .option-card[aria-checked="true"] .option-indicator .icon-check { transform: scale(1); }
+
+  /* ---------- CTA bar ---------- */
+  .cta-bar {
+    flex-shrink: 0;
+    padding: var(--sp-3) var(--sp-5) calc(var(--sp-4) + 4px);
+    background: linear-gradient(180deg, transparent, var(--bg) 30%);
+    display: flex;
+    gap: var(--sp-3);
+  }
+  .cta-bar-split { flex-direction: column; align-items: stretch; }
+  .cta-bar-split .btn-ghost { flex: none; width: 100%; }
+  .cta-bar-split .btn-primary { flex: none; width: 100%; }
+
+  .btn {
+    appearance: none;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    border-radius: var(--r-full);
+    min-height: 50px;
+    padding: 0 var(--sp-6);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .btn-primary {
+    flex: 1;
+    background: var(--primary);
+    color: var(--on-primary);
+    box-shadow: var(--shadow-1);
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--primary-strong); }
+  .btn-primary:disabled {
+    background: var(--surface-sunken);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    min-height: 44px;
+  }
+  .btn-ghost:hover { background: var(--surface-sunken); }
+
+  /* ---------- Results ---------- */
+  .results-inner { padding-top: var(--sp-2); }
+  .result-list { display: flex; flex-direction: column; gap: var(--sp-4); margin-bottom: var(--sp-5); }
+  .result-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-4) var(--sp-4) var(--sp-4);
+    box-shadow: var(--shadow-1);
+    opacity: 0;
+    transform: translateY(8px);
+    animation: rise var(--dur-slow) var(--ease-out) forwards;
+  }
+  .result-card:nth-child(1) { animation-delay: 40ms; }
+  .result-card:nth-child(2) { animation-delay: 120ms; }
+  .result-card:nth-child(3) { animation-delay: 200ms; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--accent-warm-text);
+    background: var(--accent-warm-tint);
+    padding: 4px 10px 4px 8px;
+    border-radius: var(--r-full);
+    margin-bottom: var(--sp-3);
+  }
+  .result-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-warm); }
+
+  .result-head { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-3); }
+  .result-name { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .result-generic { font-size: 13px; color: var(--text-secondary); margin-top: 1px; }
+  .result-form {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: var(--surface-sunken);
+    border-radius: var(--r-full);
+    padding: 5px 10px 5px 8px;
+    white-space: nowrap;
+  }
+  .result-form .icon { width: 14px; height: 14px; color: var(--primary); }
+
+  .result-desc { font-size: 13.5px; line-height: 1.5; color: var(--text-secondary); margin: var(--sp-3) 0; }
+
+  .result-reasons { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-3); }
+  .reason-chip {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--primary-strong);
+    background: var(--surface-selected);
+    border-radius: var(--r-full);
+    padding: 5px 11px;
+    line-height: 1.3;
+  }
+  :root:not([data-theme="light"]) .reason-chip,
+  :root[data-theme="dark"] .reason-chip { color: var(--primary); }
+
+  .result-learn {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--primary-strong);
+    padding: var(--sp-2) 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    min-height: 44px;
+  }
+  .result-learn .icon { width: 16px; height: 16px; transition: transform var(--dur-fast) var(--ease-out); }
+  .result-learn:hover .icon { transform: translateX(2px); }
+
+  .disclaimer { font-size: 12px; line-height: 1.5; color: var(--text-tertiary); margin: 0 0 var(--sp-5); }
+
+  .references {
+    border-top: 1px solid var(--border);
+    padding-top: var(--sp-4);
+    margin-bottom: var(--sp-4);
+  }
+  .references-title {
+    margin: 0 0 var(--sp-3);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .reference-list {
+    margin: 0;
+    padding-left: 1.4em;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+  .reference-list li {
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: var(--text-tertiary);
+    padding-left: 0.3em;
+  }
+  .reference-list a {
+    color: var(--primary-strong);
+    text-decoration: none;
+    word-break: break-word;
+  }
+  .reference-list a:hover,
+  .reference-list a:focus-visible {
+    text-decoration: underline;
+  }
+  .reference-list a:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 12px);
+    background: var(--text-primary);
+    color: var(--bg);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 11px 18px;
+    border-radius: var(--r-full);
+    box-shadow: var(--shadow-2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+    z-index: 50;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Full-bleed real-device mode ----------
+     Below phone-width viewports, drop the decorative mockup chrome (fake
+     bezel, status bar, Dynamic Island, home indicator) entirely — a real
+     iPhone already draws its own, and stacking a fake one on top wastes the
+     one thing a Pro Max screen has to offer: room. The app fills the actual
+     viewport edge-to-edge, with safe-area insets standing in for the notch
+     and home indicator clearance. */
+  @media (max-width: 500px) {
+    .eyebrow, .page-caption { display: none; }
+    .page { padding: 0; min-height: 100vh; min-height: 100dvh; }
+    .stage { width: 100%; }
+    .phone {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+    .phone::before,
+    .phone-notch,
+    .status-bar,
+    .home-indicator {
+      display: none;
+    }
+    .app {
+      border-radius: 0;
+      padding-top: env(safe-area-inset-top);
+    }
+    .cta-bar {
+      padding-bottom: calc(var(--sp-4) + 4px + env(safe-area-inset-bottom));
+    }
+    .toast {
+      bottom: calc(28px + env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  var order = ["intro", "goal", "bmi", "diabetes", "delivery", "comorbidities", "results"];
+  var questionSteps = ["goal", "bmi", "diabetes", "delivery", "comorbidities"];
+  var current = "intro";
+
+  var answers = {
+    goal: null,
+    bmiRange: null,
+    diabetesStatus: null,
+    delivery: null,
+    comorbidities: []
+  };
+
+  var screensEl = document.getElementById("screens");
+  var screens = {};
+  Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (el) {
+    screens[el.getAttribute("data-screen")] = el;
+  });
+  var backBtn = document.getElementById("backBtn");
+  var progressFill = document.getElementById("progressFill");
+  var progressLabel = document.getElementById("progressLabel");
+  var navProgress = document.getElementById("navProgress");
+  var toastEl = document.getElementById("toast");
+
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(function () {
+      toastEl.classList.remove("show");
+    }, 1800);
+  }
+
+  function setScreen(name) {
+    current = name;
+    Object.keys(screens).forEach(function (key) {
+      var el = screens[key];
+      var active = key === name;
+      el.classList.toggle("active", active);
+      el.setAttribute("aria-hidden", active ? "false" : "true");
+      try { el.inert = !active; } catch (e) {}
+      if (active) { el.scrollTop = 0; el.querySelector(".screen-inner") && (el.querySelector(".screen-inner").scrollTop = 0); }
+    });
+
+    var qIndex = questionSteps.indexOf(name);
+    if (qIndex > -1) {
+      var pct = ((qIndex) / questionSteps.length) * 100 + (100 / questionSteps.length) * 0.18;
+      progressFill.style.width = Math.min(100, ((qIndex + 1) / questionSteps.length) * 100) + "%";
+      progressLabel.textContent = "Step " + (qIndex + 1) + " of " + questionSteps.length;
+      navProgress.setAttribute("aria-valuenow", String(qIndex + 1));
+      navProgress.style.visibility = "visible";
+    } else if (name === "results") {
+      progressFill.style.width = "100%";
+      progressLabel.textContent = "Complete";
+      navProgress.style.visibility = "visible";
+    } else {
+      progressFill.style.width = "0%";
+      progressLabel.textContent = "";
+      navProgress.style.visibility = "hidden";
+    }
+
+    backBtn.hidden = name === "intro";
+
+    if (name === "results") { renderResults(); }
+  }
+
+  function goRelative(delta) {
+    var idx = order.indexOf(current);
+    var next = order[idx + delta];
+    if (next) setScreen(next);
+  }
+
+  backBtn.addEventListener("click", function () { goRelative(-1); });
+  document.getElementById("startBtn").addEventListener("click", function () { goRelative(1); });
+  document.getElementById("editBtn").addEventListener("click", function () { setScreen("goal"); syncAllSelections(); });
+  document.getElementById("talkBtn").addEventListener("click", function () { showToast("Marked for discussion with patient."); });
+
+  function syncAllSelections() {
+    questionSteps.forEach(function (step) {
+      var group = screens[step].querySelector(".option-list");
+      if (!group) return;
+      var field = group.getAttribute("data-field");
+      var val = answers[field];
+      Array.prototype.forEach.call(group.querySelectorAll(".option-card"), function (card) {
+        var v = card.getAttribute("data-value");
+        var isChecked = group.getAttribute("data-multi") === "true"
+          ? answers[field].indexOf(v) > -1
+          : v === val;
+        card.setAttribute("aria-checked", isChecked ? "true" : "false");
+      });
+      updateContinueState(screens[step]);
+    });
+  }
+
+  function updateContinueState(screenEl) {
+    var group = screenEl.querySelector(".option-list");
+    var btn = screenEl.querySelector("[data-continue]");
+    if (!group || !btn) return;
+    var field = group.getAttribute("data-field");
+    var isMulti = group.getAttribute("data-multi") === "true";
+    var valid = isMulti ? answers[field].length > 0 : !!answers[field];
+    btn.disabled = !valid;
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".option-list"), function (group) {
+    var field = group.getAttribute("data-field");
+    var isMulti = group.getAttribute("data-multi") === "true";
+
+    group.addEventListener("click", function (e) {
+      var card = e.target.closest(".option-card");
+      if (!card) return;
+      var value = card.getAttribute("data-value");
+
+      if (isMulti) {
+        if (value === "none") {
+          answers[field] = card.getAttribute("aria-checked") === "true" ? [] : ["none"];
+        } else {
+          answers[field] = answers[field].filter(function (v) { return v !== "none"; });
+          var pos = answers[field].indexOf(value);
+          if (pos > -1) { answers[field].splice(pos, 1); } else { answers[field].push(value); }
+        }
+        Array.prototype.forEach.call(group.querySelectorAll(".option-card"), function (c) {
+          var v = c.getAttribute("data-value");
+          c.setAttribute("aria-checked", answers[field].indexOf(v) > -1 ? "true" : "false");
+        });
+      } else {
+        answers[field] = value;
+        Array.prototype.forEach.call(group.querySelectorAll(".option-card"), function (c) {
+          c.setAttribute("aria-checked", c === card ? "true" : "false");
+        });
+      }
+      updateContinueState(group.closest(".screen"));
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-continue]"), function (btn) {
+    btn.addEventListener("click", function () { goRelative(1); });
+  });
+
+  /* ---------------- Matching logic ---------------- */
+
+  var CATALOG = [
+    {
+      id: "wegovy",
+      brand: "Wegovy",
+      generic: "semaglutide",
+      form: "injection",
+      category: "weight-loss",
+      cvBenefit: true,
+      sleepApneaBenefit: false,
+      ckdBenefit: false,
+      liverBenefit: true,
+      rankedTopA1c: false,
+      desc: "Once-weekly injection approved for chronic weight management, and to help lower cardiovascular risk in adults with heart disease."
+    },
+    {
+      id: "zepbound",
+      brand: "Zepbound",
+      generic: "tirzepatide",
+      form: "injection",
+      category: "weight-loss",
+      cvBenefit: false,
+      sleepApneaBenefit: true,
+      ckdBenefit: false,
+      liverBenefit: true,
+      rankedTopA1c: false,
+      desc: "Once-weekly injection approved for chronic weight management, and for moderate-to-severe obstructive sleep apnea with obesity."
+    },
+    {
+      id: "ozempic",
+      brand: "Ozempic",
+      generic: "semaglutide",
+      form: "injection",
+      category: "diabetes",
+      cvBenefit: true,
+      sleepApneaBenefit: false,
+      ckdBenefit: true,
+      liverBenefit: false,
+      rankedTopA1c: false,
+      desc: "Once-weekly injection approved for type 2 diabetes, to help lower cardiovascular risk in adults with known heart disease, and to help slow chronic kidney disease."
+    },
+    {
+      id: "mounjaro",
+      brand: "Mounjaro",
+      generic: "tirzepatide",
+      form: "injection",
+      category: "diabetes",
+      cvBenefit: false,
+      sleepApneaBenefit: false,
+      ckdBenefit: false,
+      liverBenefit: false,
+      rankedTopA1c: true,
+      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control."
+    },
+    {
+      id: "rybelsus",
+      brand: "Rybelsus",
+      generic: "oral semaglutide",
+      form: "oral",
+      category: "diabetes",
+      cvBenefit: true,
+      sleepApneaBenefit: false,
+      ckdBenefit: false,
+      liverBenefit: false,
+      rankedTopA1c: false,
+      desc: "The only oral GLP-1 option available today — a once-daily pill approved for type 2 diabetes, also shown to help lower cardiovascular risk."
+    }
+  ];
+
+  function scoreOption(opt, a) {
+    var score = 0;
+    var reasons = [];
+
+    if (a.delivery === opt.form) {
+      score += 3;
+      reasons.push(opt.form === "oral" ? "Matches your daily pill preference" : "Matches your weekly injection preference");
+    } else if (a.delivery === "either") {
+      score += 1;
+    } else {
+      score -= 2;
+    }
+
+    if (opt.category === "weight-loss" && (a.goal === "weight-loss" || a.goal === "both")) {
+      score += 3;
+      reasons.push("Approved for chronic weight management");
+    }
+    if (opt.category === "diabetes" && (a.goal === "diabetes" || a.goal === "both")) {
+      score += 2;
+    }
+    if (opt.category === "diabetes" && a.diabetesStatus === "type2") {
+      score += 3;
+      reasons.push("Approved for type 2 diabetes / A1c control");
+    }
+    if (opt.category === "diabetes" && a.diabetesStatus === "prediabetes") {
+      score += 1;
+    }
+
+    if (opt.category === "weight-loss" && (a.goal === "weight-loss" || a.goal === "both")) {
+      if (a.bmiRange === "30-34" || a.bmiRange === "35plus") score += 2;
+      if (a.bmiRange === "25-29" && a.comorbidities.length && a.comorbidities[0] !== "none") score += 1;
+    }
+
+    // The cardiovascular-risk-reduction evidence for the two diabetes-category
+    // options (Ozempic's SUSTAIN-6, Rybelsus's SOUL trial) was established in
+    // people with type 2 diabetes specifically, so that bonus is scoped to
+    // diabetesStatus "type2" for this category. Wegovy's cardiovascular
+    // evidence (SELECT) was in adults with obesity/overweight and did not
+    // require a diabetes diagnosis, so it stays ungated.
+    if (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) {
+      if (opt.category !== "diabetes" || a.diabetesStatus === "type2") {
+        score += 3;
+        reasons.push("Also shown to help lower cardiovascular risk in adults with ASCVD");
+      }
+    }
+    if (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) {
+      score += 3;
+      reasons.push("Also approved for moderate-to-severe sleep apnea");
+    }
+    // Semaglutide's chronic-kidney-disease indication (FDA, January 2025) was
+    // established via the FLOW trial in people with type 2 diabetes and CKD.
+    if (a.comorbidities.indexOf("ckd") > -1 && opt.ckdBenefit && a.diabetesStatus === "type2") {
+      score += 3;
+      reasons.push("Also approved to help slow chronic kidney disease");
+    }
+    if (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit) {
+      score += 3;
+      reasons.push("Trial evidence shows improvement in MASLD-related liver fat and fibrosis");
+    }
+
+    // Network meta-analysis data (type 2 diabetes only) ranks tirzepatide as the
+    // most effective GLP-1 option for HbA1c and fasting glucose reduction with
+    // high confidence of evidence. No equivalent head-to-head ranking exists for
+    // the weight-loss-only literature, so this bonus is deliberately scoped to
+    // the diabetes category and framed as comparative trial data, not a claim
+    // of head-to-head superiority.
+    if (opt.rankedTopA1c && a.diabetesStatus === "type2") {
+      score += 1;
+      reasons.push("Ranked most effective for A1c and blood sugar control in comparative trial data");
+    }
+
+    if (opt.id === "rybelsus" && a.delivery === "oral") {
+      reasons.push("Only GLP-1 option available as a pill");
+    }
+
+    // Weight-management-labeled options need an actual clinical rationale —
+    // a stated weight-loss goal, or a comorbidity with a specific approved
+    // benefit (cardiovascular, sleep apnea, liver) — not just a matching
+    // delivery preference on its own. Otherwise a diabetes-only visitor could
+    // see a weight-loss drug surface purely because they said "no preference"
+    // on injections vs. pills.
+    if (opt.category === "weight-loss") {
+      var weightLossIndicated =
+        a.goal === "weight-loss" || a.goal === "both" ||
+        (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) ||
+        (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) ||
+        (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit);
+      if (!weightLossIndicated) { score = 0; }
+    }
+
+    // Symmetrically, a diabetes-category option needs an actual rationale —
+    // a stated diabetes goal, or a diabetes/prediabetes diagnosis — not just
+    // a matching delivery preference. Otherwise someone with no diabetes and
+    // a pure weight-loss goal could see a diabetes-only drug surface purely
+    // because they picked "no preference" on delivery.
+    if (opt.category === "diabetes") {
+      var diabetesIndicated =
+        a.goal === "diabetes" || a.goal === "both" ||
+        a.diabetesStatus === "type2" || a.diabetesStatus === "prediabetes";
+      if (!diabetesIndicated) { score = 0; }
+    }
+
+    return { score: score, reasons: reasons };
+  }
+
+  function iconFor(form) {
+    return form === "oral" ? "i-pill" : "i-syringe";
+  }
+
+  function renderResults() {
+    var list = document.getElementById("resultList");
+    var summary = document.getElementById("resultsSummary");
+    list.innerHTML = "";
+
+    var scored = CATALOG.map(function (opt) {
+      var r = scoreOption(opt, answers);
+      return { opt: opt, score: r.score, reasons: r.reasons };
+    }).filter(function (r) { return r.score > 0; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .slice(0, 3);
+
+    if (scored.length === 0) {
+      scored = CATALOG.map(function (opt) {
+        var r = scoreOption(opt, answers);
+        return { opt: opt, score: r.score, reasons: r.reasons };
+      }).sort(function (a, b) { return b.score - a.score; }).slice(0, 2);
+    }
+
+    summary.textContent = "Based on the inputs, here" + "'" + "s how these GLP‑1 options line up clinically.";
+
+    scored.forEach(function (item, i) {
+      var opt = item.opt;
+      var card = document.createElement("article");
+      card.className = "result-card";
+
+      var badge = i === 0
+        ? '<span class="result-badge"><span class="result-badge-dot"></span>Best match</span>'
+        : "";
+
+      var reasons = item.reasons.length
+        ? item.reasons
+        : ["Limited direct matches — weigh against full clinical context"];
+
+      card.innerHTML =
+        badge +
+        '<div class="result-head">' +
+          '<div>' +
+            '<div class="result-name">' + opt.brand + '</div>' +
+            '<div class="result-generic">' + opt.generic + '</div>' +
+          '</div>' +
+          '<span class="result-form"><svg class="icon"><use href="#' + iconFor(opt.form) + '"/></svg>' + (opt.form === "oral" ? "Daily pill" : "Weekly injection") + '</span>' +
+        '</div>' +
+        '<p class="result-desc">' + opt.desc + '</p>' +
+        '<div class="result-reasons">' + reasons.map(function (r) { return '<span class="reason-chip">' + r + '</span>'; }).join("") + '</div>' +
+        '<button type="button" class="result-learn">Learn more<svg class="icon"><use href="#i-chevron-right"/></svg></button>';
+
+      list.appendChild(card);
+    });
+  }
+
+  setScreen("intro");
+})();
+</script>
