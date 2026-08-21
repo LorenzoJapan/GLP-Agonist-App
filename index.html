@@ -1199,13 +1199,21 @@
     var score = 0;
     var reasons = [];
 
+    // A delivery-preference mismatch needs to outweigh realistic combinations
+    // of stacked comorbidity bonuses (+3 each) below, not just the base
+    // category-approval bonus (+3) alone — otherwise a patient who explicitly
+    // asked for a pill can still be shown an injection ranked first purely
+    // because it happens to carry more comorbidity-specific evidence. -8 was
+    // chosen as the smallest penalty that reliably outweighs the largest
+    // realistic stacked-bonus total in this catalog (independently validated
+    // against a 100-case test set; see /validation in the project repo).
     if (a.delivery === opt.form) {
       score += 3;
       reasons.push(opt.form === "oral" ? "Matches your daily pill preference" : "Matches your weekly injection preference");
     } else if (a.delivery === "either") {
       score += 1;
     } else {
-      score -= 2;
+      score -= 8;
     }
 
     if (opt.category === "weight-loss" && (a.goal === "weight-loss" || a.goal === "both")) {

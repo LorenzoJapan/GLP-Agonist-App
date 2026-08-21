@@ -34,6 +34,8 @@ https://<your-username>.github.io/<repo-name>/
 ```
 .
 ├── index.html              # the entire app — markup, styles, and logic in one file
+├── VALIDATION.md            # independent 100-case accuracy check, method + results
+├── validation/               # scripts that produced VALIDATION.md (not part of the shipped app)
 ├── docs/
 │   └── screenshot.png       # image used in this README
 └── .github/workflows/
@@ -49,6 +51,10 @@ The matching logic and indication text are grounded in three sources:
 3. Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313–24. doi:10.1056/NEJMra2500106
 
 These same three references appear on the app's own results screen.
+
+## Validation
+
+The matching algorithm was independently checked against 100 randomly generated patient profiles, graded by logic written fresh from the source papers (not from the app's own code): 85% exact match, 89% evidence-consistent overall, after a fix to delivery-preference weighting. See [VALIDATION.md](VALIDATION.md) for the full method, both rounds of results, and an honest breakdown of every remaining mismatch. The scripts that produced it are in `validation/`.
 
 ## Accessibility
 
