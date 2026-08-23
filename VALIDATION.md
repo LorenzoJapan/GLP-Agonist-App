@@ -1,11 +1,11 @@
 # Independent Validation — 100-Case Test
 
-This is a record of an independent accuracy check run against the app's matching algorithm (`scoreOption()` in `index.html`), first run 2026-08-21, then re-run after a fix to delivery-preference weighting the same day.
+This is a record of an independent accuracy check run against the app's matching algorithm (`scoreOption()` in `index.html`), first run 2026-08-21, re-run the same day after a fix to delivery-preference weighting, then re-run again on 2026-08-23 after adding oral semaglutide 25 mg ("Wegovy (pill)") to the catalog.
 
 ## Method
 
 1. **100 random synthetic patient profiles** were generated (`goal`, `bmiRange`, `diabetesStatus`, `delivery`, `comorbidities`), each field drawn independently and uniformly at random (fixed seed `20260821` for reproducibility). Comorbidities were included independently at 22% probability each.
-2. **An independent "ground truth" grader** was written from scratch directly against the three source papers (Moiz et al., Ann Intern Med 2025; Yao et al., BMJ 2024; Rosen & Ingelfinger, NEJM 2026) — *without* reading or reusing the app's own `scoreOption()` logic — to avoid a tautological self-check. It uses a fixed priority cascade (ASCVD → sleep apnea → CKD+T2D → MASLD → T2D → weight-loss goal) rather than cumulative scoring, and returns both a single "primary" pick and a set of "acceptable" alternates for genuine ties (e.g. no head-to-head weight-loss RCTs exist between Wegovy and Zepbound).
+2. **An independent "ground truth" grader** was written from scratch directly against the source papers (Moiz et al., Ann Intern Med 2025; Yao et al., BMJ 2024; Rosen & Ingelfinger, NEJM 2026; and, as of the Round 3 update, Wharton et al. for the OASIS 4 Study Group, NEJM 2025) — *without* reading or reusing the app's own `scoreOption()` logic — to avoid a tautological self-check. It uses a fixed priority cascade (ASCVD → sleep apnea → CKD+T2D → MASLD → T2D → weight-loss goal) rather than cumulative scoring, and returns both a single "primary" pick and a set of "acceptable" alternates for genuine ties (e.g. no head-to-head weight-loss RCTs exist between Wegovy and Zepbound).
 3. **The actual, unmodified app** (`index.html`) was driven through all 100 profiles with Playwright — real clicks through the real UI, not a re-implementation — and its top-ranked ("Best match") result was recorded for each case.
 4. Each case was scored `exact` (app's top pick == grader's primary), `acceptable` (app's top pick is in the grader's acceptable set but isn't the primary), `mismatch` (app's top pick isn't evidence-supported at all), or `edge_case` (no catalog drug is well-supported by the evidence for that exact combination — this happens because no oral GLP-1 is FDA-approved for weight management, only for diabetes).
 
@@ -43,9 +43,31 @@ All 5 pure delivery-mismatch cases are resolved. The 8 remaining mismatches are 
 
 **Cases where the independent grader was the limiting factor, not the app (2 cases: #43, #45).** In #43, the patient's stated goal is weight-loss only but the diabetes-status field says type 2 — the app reasonably surfaces the diabetes-optimized option (Mounjaro) given the real diagnosis; the grader never considers that branch because it gates strictly on the stated goal. In #45, the patient has both sleep apnea and CKD-with-T2D simultaneously; the grader's single-priority cascade stops at the first match (sleep apnea → Zepbound) and never weighs the co-occurring CKD/T2D indication (FLOW trial, Ozempic-specific), while the app correctly weighs both.
 
-## The 3 edge cases
+## The 3 edge cases (Round 2)
 
-#17, #47, #99: oral delivery requested for a pure weight-loss goal. No oral GLP-1 is FDA-approved for weight management today (Rybelsus is diabetes-only), so there is no genuinely correct answer to check the app against. The app shows its best available option rather than an empty screen, which is reasonable UX, but a provider should be aware this combination has no on-label oral answer.
+#17, #47, #99: oral delivery requested for a pure weight-loss goal. No oral GLP-1 was FDA-approved for weight management at the time (Rybelsus is diabetes-only), so there was no genuinely correct answer to check the app against. The app showed its best available option rather than an empty screen, which was reasonable UX, but a provider needed to be aware this combination had no on-label oral answer. **This is the gap oral Wegovy closes — see Round 3.**
+
+## Catalog update: oral Wegovy ("Wegovy (pill)")
+
+On 2026-08-23, once-daily oral semaglutide 25 mg — brand name Wegovy, an oral tablet distinct from the existing once-weekly Wegovy injection — was added to the catalog as `wegovy-oral`. It is FDA-approved for chronic weight management and, per FDA labeling and the manufacturer's approval announcement, carries the same cardiovascular-risk-reduction indication as injectable Wegovy (adults with established cardiovascular disease and overweight/obesity). The efficacy trial is OASIS 4 (Wharton et al., N Engl J Med 2025;393(11):1077-1087). It does not carry Wegovy/Zepbound's MASLD liver-fat-improvement evidence, so `liverBenefit` is `false` for this entry. The independent grader's `DRUGS` dict, ASCVD priority branch, and weight-loss-fallback priority branch were all updated to include it (see `validation/independent_grader.py`).
+
+## Round 3 result (after adding oral Wegovy)
+
+Re-running the grader alone (unchanged app) against the updated 100 profiles immediately resolved all 3 former edge cases to real candidates (an oral, weight-management-approved option now exists) but also surfaced 3 *new* mismatches (#11, #30, #81): profiles where a patient with type 2 diabetes, oral delivery preference, and a **pure weight-loss goal** tied 6-to-6 between Rybelsus (diabetes bonus) and the new Wegovy pill (weight-loss bonus), with the tie silently broken in Rybelsus's favor by catalog order — even though Rybelsus isn't approved for the goal the patient actually stated.
+
+**Fix, attempt 1 (reverted):** added a flat `+1` "goal-exclusivity" bonus whenever `opt.category` matched a single (non-"both") stated goal. This fixed #11/#30/#81 but, tested against the full 100 cases before shipping, regressed 2 previously-exact cases (#25, #97): patients with CKD + type 2 diabetes whose goal was "weight-loss" only, where Ozempic's specific FLOW-trial CKD indication (a comorbidity-driven, category-crossing match) should outrank a generic weight-loss-category match, and the flat bonus was pushing Wegovy ahead of it on the tie.
+
+**Fix, attempt 2 (shipped):** scoped the same `+1` bonus to `a.delivery === "oral"` only, since the oral/injectable split is the actual axis this conflict lives on — Rybelsus and Wegovy (pill) are the *only* two options that can tie head-to-head on goal alone, and that can only happen when oral delivery is requested. Re-tested against all 100 profiles: resolves #11/#30/#81 with zero regressions, including #25/#97.
+
+| Metric | Value |
+|---|---|
+| Exact match | 88 (88%) |
+| Acceptable alternate | 4 |
+| Mismatch | 8 |
+| No valid answer exists (edge case) | 0 |
+| **Evidence-consistent (exact + acceptable)** | **92%** |
+
+The 8 remaining mismatches are exactly the same 8 cases from Round 2 (#9, #10, #29, #43, #45, #57, #83, #100) — unrelated to the oral Wegovy addition, and already explained above (contradictory random test inputs, off-category comorbidity bonuses, and two cases where the independent grader's simpler fixed-priority logic is the limiting factor rather than the app). No new mismatches remain after the scoped fix.
 
 ## Files
 

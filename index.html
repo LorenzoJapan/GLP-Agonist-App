@@ -172,7 +172,7 @@
             <div class="screen-inner">
               <p class="step-eyebrow">Step 4 of 5</p>
               <h1 class="h2">What's the patient's delivery preference?</h1>
-              <p class="sub">Most GLP&#8209;1 options are a once&#8209;weekly injection; one is a daily pill.</p>
+              <p class="sub">Most GLP&#8209;1 options are a once&#8209;weekly injection; two are once&#8209;daily pills.</p>
               <div class="option-list" role="radiogroup" aria-label="Patient delivery preference" data-field="delivery">
                 <button type="button" class="option-card" data-value="injection" role="radio" aria-checked="false">
                   <span class="option-icon"><svg class="icon"><use href="#i-syringe"/></svg></span>
@@ -278,6 +278,7 @@
                   <li>Moiz A, Filion KB, Toutounchi H, Tsoukas MA, Yu OHY, Peters TM, et al. Efficacy and safety of glucagon-like peptide-1 receptor agonists for weight loss among adults without diabetes: a systematic review of randomized controlled trials. Ann Intern Med. 2025;178(2):199&ndash;217. doi:<a href="https://doi.org/10.7326/ANNALS-24-01590" target="_blank" rel="noopener noreferrer">10.7326/ANNALS-24-01590</a></li>
                   <li>Yao H, Zhang A, Li D, Wu Y, Wang CZ, Wan JY, et al. Comparative effectiveness of GLP-1 receptor agonists on glycaemic control, body weight, and lipid profile for type 2 diabetes: systematic review and network meta-analysis. BMJ. 2024;384:e076410. doi:<a href="https://doi.org/10.1136/bmj-2023-076410" target="_blank" rel="noopener noreferrer">10.1136/bmj-2023-076410</a></li>
                   <li>Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313&ndash;24. doi:<a href="https://doi.org/10.1056/NEJMra2500106" target="_blank" rel="noopener noreferrer">10.1056/NEJMra2500106</a></li>
+                  <li>Wharton S, Lingvay I, Bogdanski P, Duque do Vale R, Jacob S, Karlsson T, et al; for the OASIS 4 Study Group. Oral semaglutide at a dose of 25 mg in adults with overweight or obesity. N Engl J Med. 2025;393(11):1077&ndash;87. doi:<a href="https://doi.org/10.1056/NEJMoa2500969" target="_blank" rel="noopener noreferrer">10.1056/NEJMoa2500969</a></li>
                 </ol>
               </details>
             </div>
@@ -1504,8 +1505,24 @@
       ckdBenefit: false,
       liverBenefit: false,
       rankedTopA1c: false,
-      desc: "The only oral GLP-1 option available today — a once-daily pill approved for type 2 diabetes, also shown to help lower cardiovascular risk.",
+      desc: "A once-daily pill approved for type 2 diabetes, also shown to help lower cardiovascular risk in adults with type 2 diabetes and established heart disease.",
       dosing: "Starts at 3 mg daily for 30 days (dose-escalation only), then 7 mg daily; may increase to 14 mg daily after at least 30 days if additional glycemic control is needed. Taken on an empty stomach with no more than 4 oz of water, at least 30 minutes before food, other medications, or drink.",
+      sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Abdominal pain"],
+      notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of pancreatitis (use caution)"]
+    },
+    {
+      id: "wegovy-oral",
+      brand: "Wegovy (pill)",
+      generic: "oral semaglutide",
+      form: "oral",
+      category: "weight-loss",
+      cvBenefit: true,
+      sleepApneaBenefit: false,
+      ckdBenefit: false,
+      liverBenefit: false,
+      rankedTopA1c: false,
+      desc: "Once-daily pill approved for chronic weight management, and to help lower cardiovascular risk in adults with heart disease and overweight or obesity — the first oral GLP-1 approved for weight loss.",
+      dosing: "Starts at 1.5 mg daily for 30 days (dose-escalation only), then 4 mg for 30 days, then 9 mg for 30 days, reaching a maintenance dose of 25 mg daily around day 91. Taken on an empty stomach with no more than 4 oz of water, at least 30 minutes before food, other medications, or drink.",
       sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Abdominal pain"],
       notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of pancreatitis (use caution)"]
     }
@@ -1544,6 +1561,22 @@
       reasons.push("Approved for type 2 diabetes / A1c control");
     }
     if (opt.category === "diabetes" && a.diabetesStatus === "prediabetes") {
+      score += 1;
+    }
+    // With two oral options now on the market (Rybelsus for diabetes,
+    // Wegovy pill for weight management), a patient who asked for a pill,
+    // has type 2 diabetes, and whose stated goal is weight-loss ONLY can
+    // tie between the two on points alone (diabetes bonus vs. weight-loss
+    // bonus) even though only one of the two is actually approved for what
+    // they said they want. Scoped narrowly to oral delivery, since that's
+    // the only place this specific two-options-tied-on-goal conflict can
+    // arise — validated against the 100-case test set to confirm this does
+    // NOT change any injectable-delivery result (e.g. a comorbidity-specific
+    // match like CKD -> Ozempic must still win over a generic goal match).
+    if (a.delivery === "oral" && opt.category === "weight-loss" && a.goal === "weight-loss") {
+      score += 1;
+    }
+    if (a.delivery === "oral" && opt.category === "diabetes" && a.goal === "diabetes") {
       score += 1;
     }
 
@@ -1591,7 +1624,10 @@
     }
 
     if (opt.id === "rybelsus" && a.delivery === "oral") {
-      reasons.push("Only GLP-1 option available as a pill");
+      reasons.push("The only oral GLP-1 option approved for type 2 diabetes");
+    }
+    if (opt.id === "wegovy-oral" && a.delivery === "oral") {
+      reasons.push("The only oral GLP-1 option approved for weight management");
     }
 
     // Weight-management-labeled options need an actual clinical rationale —

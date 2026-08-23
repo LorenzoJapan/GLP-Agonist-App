@@ -29,8 +29,18 @@ Evidence this logic is grounded in:
       -> Zepbound: moderate-to-severe obstructive sleep apnea with obesity
          (SURMOUNT-OSA); Wegovy and Zepbound both showed improvement in
          MASLD-related liver fat/fibrosis.
-      -> Rybelsus is the only oral GLP-1 option available; it is a type 2
-         diabetes drug only, not a weight-management drug.
+      -> Rybelsus is an oral GLP-1 option, but it is a type 2 diabetes drug
+         only, not a weight-management drug.
+  [4] Wharton et al., for the OASIS 4 Study Group. N Engl J Med 2025;393(11):
+      1077-1087 (oral semaglutide 25 mg in adults with overweight/obesity)
+      -> FDA-approved Dec 2025 as "Wegovy (pill)": once-daily oral
+         semaglutide 25 mg, the first oral GLP-1 approved for chronic weight
+         management. Per FDA labeling and the manufacturer's approval
+         announcement, it carries the same cardiovascular-risk-reduction
+         indication as injectable Wegovy (adults with established
+         cardiovascular disease and overweight/obesity), grounded in the same
+         SELECT trial population/mechanism rather than a separate CV outcomes
+         trial of the oral formulation itself.
 
 This module returns, for each profile:
   - primary: the single most evidence-supported first choice, when the
@@ -40,8 +50,7 @@ This module returns, for each profile:
     head-to-head weight-loss data), this set has more than one member, and
     matching ANY of them counts as evidence-consistent, not just "primary"
   - edge_case: a note when no catalog option is well-supported by the
-    evidence for this exact combination (e.g. oral delivery + pure weight-loss
-    goal, since no oral weight-management GLP-1 is approved today)
+    evidence for this exact combination
 """
 
 DRUGS = {
@@ -50,6 +59,7 @@ DRUGS = {
     "Ozempic": {"category": "diabetes", "form": "injection"},
     "Mounjaro": {"category": "diabetes", "form": "injection"},
     "Rybelsus": {"category": "diabetes", "form": "oral"},
+    "Wegovy (pill)": {"category": "weight-loss", "form": "oral"},
 }
 
 
@@ -90,8 +100,9 @@ def grade(profile):
             "acceptable": set(),
             "edge_case": "No approved option matches both the stated goal and delivery "
                           "preference (most likely: oral delivery requested for a "
-                          "pure weight-loss goal -- no oral weight-management GLP-1 "
-                          "is approved today; Rybelsus is diabetes-only).",
+                          "diabetes goal outside type 2/prediabetes, or another "
+                          "combination with no approved oral option -- Rybelsus is "
+                          "diabetes-only and Wegovy (pill) is weight-management-only).",
         }
 
     # --- Priority 1: ASCVD -> cardiovascular-risk-reduction indication ---
@@ -104,12 +115,19 @@ def grade(profile):
                 cv_candidates.append("Rybelsus")
         if "Wegovy" in candidates:
             cv_candidates.append("Wegovy")
+        if "Wegovy (pill)" in candidates:
+            cv_candidates.append("Wegovy (pill)")
         if cv_candidates:
             # When both a diabetes-specific and a weight-loss-specific CV option
             # are simultaneously eligible (goal=both, T2D, ASCVD), the literature
             # doesn't force a single winner -- treat all as acceptable, but prefer
             # the diabetes-specific injectable (Ozempic) as primary since it also
             # picks up glycemic control and, often, CKD risk in the same patient.
+            # Between the two Wegovy forms (only both-eligible when delivery is
+            # "either"), the injectable is primary since it's the original,
+            # longer-established CV-outcomes formulation (SELECT); the oral pill
+            # is an acceptable alternate on the same indication (OASIS 4 dosing,
+            # CV benefit per labeling rather than a dedicated CV-outcomes trial).
             primary = "Ozempic" if "Ozempic" in cv_candidates else cv_candidates[0]
             return {"primary": primary, "acceptable": set(cv_candidates), "edge_case": None}
 
@@ -141,7 +159,7 @@ def grade(profile):
 
     # --- Priority 6: weight-loss goal, no specific comorbidity/diabetes match ---
     if weight_mgmt_eligible:
-        weight_candidates = [n for n in ("Wegovy", "Zepbound") if n in candidates]
+        weight_candidates = [n for n in ("Wegovy", "Zepbound", "Wegovy (pill)") if n in candidates]
         if weight_candidates:
             # No head-to-head RCTs per Annals 2025 -- both are acceptable, tied.
             return {"primary": weight_candidates[0], "acceptable": set(weight_candidates), "edge_case": None}

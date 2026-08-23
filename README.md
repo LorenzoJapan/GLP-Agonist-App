@@ -6,7 +6,7 @@ A clinician-facing iOS-style tool that matches a patient's profile — treatment
 
 ## What it does
 
-The app walks through a five-step intake (goal, BMI range, diabetes status, delivery preference, comorbidities), then a review screen summarizing all five answers — tap any one to jump straight back and change it, without re-clicking through the whole flow — before scoring five FDA-approved GLP-1 options — Wegovy, Zepbound, Ozempic, Mounjaro, and Rybelsus — against the inputs. Each result surfaces the specific approved indications and trial findings behind the match (for example, semaglutide's cardiovascular-risk-reduction indication in ASCVD, or semaglutide's chronic-kidney-disease indication in type 2 diabetes), a relative "close alternative" indicator against the top pick, and a "Learn more" panel with typical dosing, common side effects, and contraindications for that option. A banner flags the rare combination where no option is a strong match, so a low-confidence result never looks identical to a confident one.
+The app walks through a five-step intake (goal, BMI range, diabetes status, delivery preference, comorbidities), then a review screen summarizing all five answers — tap any one to jump straight back and change it, without re-clicking through the whole flow — before scoring six FDA-approved GLP-1 options — Wegovy, Zepbound, Ozempic, Mounjaro, Rybelsus, and the newly approved oral Wegovy tablet — against the inputs. Each result surfaces the specific approved indications and trial findings behind the match (for example, semaglutide's cardiovascular-risk-reduction indication in ASCVD, or semaglutide's chronic-kidney-disease indication in type 2 diabetes), a relative "close alternative" indicator against the top pick, and a "Learn more" panel with typical dosing, common side effects, and contraindications for that option. A banner flags the rare combination where no option is a strong match, so a low-confidence result never looks identical to a confident one.
 
 It is decision support only. It does not replace clinical judgment, contraindication and drug-interaction screening, or shared decision-making with the patient — the app says so on its own results screen, along with collapsible, numbered references to the trial and meta-analysis literature it draws on.
 
@@ -44,17 +44,18 @@ https://<your-username>.github.io/<repo-name>/
 
 ## Evidence sources
 
-The matching logic and indication text are grounded in three sources:
+The matching logic and indication text are grounded in four sources:
 
 1. Moiz A, Filion KB, Toutounchi H, Tsoukas MA, Yu OHY, Peters TM, et al. Efficacy and safety of glucagon-like peptide-1 receptor agonists for weight loss among adults without diabetes: a systematic review of randomized controlled trials. Ann Intern Med. 2025;178(2):199–217. doi:10.7326/ANNALS-24-01590
 2. Yao H, Zhang A, Li D, Wu Y, Wang CZ, Wan JY, et al. Comparative effectiveness of GLP-1 receptor agonists on glycaemic control, body weight, and lipid profile for type 2 diabetes: systematic review and network meta-analysis. BMJ. 2024;384:e076410. doi:10.1136/bmj-2023-076410
 3. Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313–24. doi:10.1056/NEJMra2500106
+4. Wharton S, Lingvay I, Bogdanski P, Duque do Vale R, Jacob S, Karlsson T, et al; for the OASIS 4 Study Group. Oral semaglutide at a dose of 25 mg in adults with overweight or obesity. N Engl J Med. 2025;393(11):1077–87. doi:10.1056/NEJMoa2500969
 
-These same three references appear on the app's own results screen.
+These same four references appear on the app's own results screen.
 
 ## Validation
 
-The matching algorithm was independently checked against 100 randomly generated patient profiles, graded by logic written fresh from the source papers (not from the app's own code): 85% exact match, 89% evidence-consistent overall, after a fix to delivery-preference weighting. See [VALIDATION.md](VALIDATION.md) for the full method, both rounds of results, and an honest breakdown of every remaining mismatch. The scripts that produced it are in `validation/`.
+The matching algorithm was independently checked against 100 randomly generated patient profiles, graded by logic written fresh from the source papers (not from the app's own code): 88% exact match, 92% evidence-consistent overall, after fixes to delivery-preference weighting and, most recently, oral-delivery goal-matching following the addition of oral Wegovy. See [VALIDATION.md](VALIDATION.md) for the full method, all three rounds of results, and an honest breakdown of every remaining mismatch. The scripts that produced it are in `validation/`.
 
 ## Accessibility
 
