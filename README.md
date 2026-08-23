@@ -55,7 +55,7 @@ These same four references appear on the app's own results screen.
 
 ## Validation
 
-The matching algorithm was independently checked against 100 randomly generated patient profiles, graded by logic written fresh from the source papers (not from the app's own code): 88% exact match, 92% evidence-consistent overall, after fixes to delivery-preference weighting and, most recently, oral-delivery goal-matching following the addition of oral Wegovy. See [VALIDATION.md](VALIDATION.md) for the full method, all three rounds of results, and an honest breakdown of every remaining mismatch. The scripts that produced it are in `validation/`.
+The matching algorithm was independently checked against 100 randomly generated patient profiles, graded by logic written fresh from the source papers (not from the app's own code): 88% exact match, 91% evidence-consistent overall, after fixes to delivery-preference weighting, oral-delivery goal-matching, a BMI eligibility floor on weight-management recommendations, and — most recently — a goal-alignment tiebreaker prompted by a per-drug recall test (50 patients sampled per drug) that found Ozempic recall at only 64%; it's now 84%, with the other five drugs holding at 96–100%. See [VALIDATION.md](VALIDATION.md) for the full method, all five rounds of results, and an honest breakdown of every remaining mismatch. The scripts that produced it are in `validation/`.
 
 ## Accessibility
 

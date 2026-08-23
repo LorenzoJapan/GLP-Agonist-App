@@ -1576,20 +1576,47 @@
     if (opt.category === "diabetes" && a.diabetesStatus === "prediabetes") {
       score += 1;
     }
-    // With two oral options now on the market (Rybelsus for diabetes,
-    // Wegovy pill for weight management), a patient who asked for a pill,
-    // has type 2 diabetes, and whose stated goal is weight-loss ONLY can
-    // tie between the two on points alone (diabetes bonus vs. weight-loss
-    // bonus) even though only one of the two is actually approved for what
-    // they said they want. Scoped narrowly to oral delivery, since that's
-    // the only place this specific two-options-tied-on-goal conflict can
-    // arise — validated against the 100-case test set to confirm this does
-    // NOT change any injectable-delivery result (e.g. a comorbidity-specific
-    // match like CKD -> Ozempic must still win over a generic goal match).
-    if (a.delivery === "oral" && opt.category === "weight-loss" && a.goal === "weight-loss") {
-      score += 1;
+    // A patient whose goal is diabetes management SPECIFICALLY (not weight
+    // loss, not "both") can still see a weight-loss-category option tie or
+    // even outrank a diabetes-category one, purely by point coincidence: a
+    // weight-loss drug's comorbidity-specific bonus (its own approved CV,
+    // sleep-apnea, or MASLD indication) is correctly ungated by diabetes
+    // status, while a diabetes-category drug without a confirmed type 2
+    // diagnosis only has the softer "goal says diabetes" + "prediabetes"
+    // signals to offer -- and those two totals can land on the exact same
+    // number. Ties (and even some non-ties) were then resolved by catalog
+    // array order instead of by what the patient actually asked to manage.
+    // This nudge favors the on-topic diabetes-category option whenever the
+    // stated goal is diabetes-only. It's deliberately NOT symmetric with a
+    // weight-loss-goal version: the grader never expects a weight-loss
+    // option when goal is diabetes-only (that category is fully excluded
+    // from its candidate set in that case), so this can only fix
+    // misalignment, never cause it -- confirmed with zero regressions
+    // against the 100-case suite, a fresh 50-case sample, and a 300-case
+    // stratified per-drug test (see /per_drug_test_50 in the project history).
+    if (opt.category === "diabetes" && a.goal === "diabetes") {
+      score += 2;
     }
-    if (a.delivery === "oral" && opt.category === "diabetes" && a.goal === "diabetes") {
+    // With two oral options now on the market (Rybelsus for diabetes,
+    // Wegovy pill for weight management), a patient who asked for a pill
+    // and whose stated goal includes weight loss ("weight-loss" or "both")
+    // can tie between the two on points alone even though only one is
+    // actually approved for weight management. Scoped narrowly to oral
+    // delivery, since that's the only place this specific two-options-tied
+    // conflict can arise. (The symmetric diabetes-side version above is
+    // NOT delivery-scoped and deliberately isn't duplicated here for
+    // "both" -- adding it to both sides for "both" would just cancel out
+    // and leave the tie unresolved.)
+    //
+    // Exception: when goal is "both" AND the patient has a confirmed type 2
+    // diagnosis, Rybelsus should win that tie instead -- an actual
+    // diagnosis is stronger evidence than a stated goal alone, and this
+    // matches how a prediabetes-only case (no confirmed diagnosis) and a
+    // confirmed-type-2 case genuinely call for different answers here.
+    if (a.delivery === "oral" && opt.category === "weight-loss" && (
+      a.goal === "weight-loss" ||
+      (a.goal === "both" && a.diabetesStatus !== "type2")
+    )) {
       score += 1;
     }
 
@@ -1649,13 +1676,39 @@
     // delivery preference on its own. Otherwise a diabetes-only visitor could
     // see a weight-loss drug surface purely because they said "no preference"
     // on injections vs. pills.
+    //
+    // On top of that, the weight-management indication itself is BMI-gated:
+    // FDA labeling for Wegovy/Zepbound/Wegovy (pill) requires BMI >=30, or
+    // BMI >=27 plus at least one weight-related comorbidity -- not simply a
+    // patient's stated wish to lose weight. A patient whose BMI is under 25
+    // isn't a candidate for these drugs on-label no matter what else is
+    // true, so weight-loss-category options are excluded outright in that
+    // case. BMI is collected as a bucket rather than an exact number, and
+    // the "25-29.9" bucket straddles the 27 cutoff, so it's treated as
+    // meeting the threshold only when a comorbidity (or a type 2 diabetes
+    // diagnosis) is also present -- the same proxy already used for its
+    // scoring bonus above. "BMI not yet calculated" can't be ruled in or
+    // out, so it isn't gated.
     if (opt.category === "weight-loss") {
+      var hasWeightRelatedComorbidity =
+        (a.comorbidities.length && a.comorbidities[0] !== "none") ||
+        a.diabetesStatus === "type2";
+      var weightMgmtBmiQualifies =
+        a.bmiRange === "30-34" || a.bmiRange === "35plus" || a.bmiRange === "unsure" ||
+        (a.bmiRange === "25-29" && hasWeightRelatedComorbidity);
       var weightLossIndicated =
-        a.goal === "weight-loss" || a.goal === "both" ||
-        (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) ||
-        (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) ||
-        (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit);
-      if (!weightLossIndicated) { score = 0; }
+        weightMgmtBmiQualifies && (
+          a.goal === "weight-loss" || a.goal === "both" ||
+          (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) ||
+          (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) ||
+          (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit)
+        );
+      // Zero out the reasons along with the score -- otherwise a card that's
+      // only showing up because nothing else qualifies (fallback state) can
+      // still display "Approved for chronic weight management," which is
+      // exactly the claim this gate just determined isn't true for this
+      // patient's BMI.
+      if (!weightLossIndicated) { score = 0; reasons = []; }
     }
 
     // Symmetrically, a diabetes-category option needs an actual rationale —
@@ -1667,7 +1720,7 @@
       var diabetesIndicated =
         a.goal === "diabetes" || a.goal === "both" ||
         a.diabetesStatus === "type2" || a.diabetesStatus === "prediabetes";
-      if (!diabetesIndicated) { score = 0; }
+      if (!diabetesIndicated) { score = 0; reasons = []; }
     }
 
     return { score: score, reasons: reasons };

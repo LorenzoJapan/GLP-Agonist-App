@@ -69,6 +69,62 @@ Re-running the grader alone (unchanged app) against the updated 100 profiles imm
 
 The 8 remaining mismatches are exactly the same 8 cases from Round 2 (#9, #10, #29, #43, #45, #57, #83, #100) — unrelated to the oral Wegovy addition, and already explained above (contradictory random test inputs, off-category comorbidity bonuses, and two cases where the independent grader's simpler fixed-priority logic is the limiting factor rather than the app). No new mismatches remain after the scoped fix.
 
+## Gap found: no BMI floor on weight-management recommendations
+
+On 2026-08-23, prompted by a direct question ("does the app recommend GLP treatment if a patient is not at least overweight, with no other medical conditions?"), a real gap was found and confirmed by testing the live app: a profile with goal = weight-loss, BMI under 25, no diabetes, and no comorbidities was still shown Wegovy, Zepbound, and Wegovy (pill) as top matches, each labeled "Approved for chronic weight management."
+
+FDA labeling for all three weight-management-indicated options requires BMI ≥30, or BMI ≥27 plus at least one weight-related comorbidity (hypertension, dyslipidemia, type 2 diabetes, obstructive sleep apnea, or established cardiovascular disease) — not simply a stated wish to lose weight. `scoreOption()` used BMI only as a scoring bonus (extra points at higher ranges) with no floor, so a stated weight-loss goal alone was enough to trigger the base "approved" bonus and reason chip regardless of actual BMI.
+
+## Round 4 result (after adding the BMI eligibility gate)
+
+**Fix:** weight-loss-category options now require `weightMgmtBmiQualifies` to be true before scoring at all: BMI 30–34.9 or 35+ always qualifies; BMI 25–29.9 qualifies only alongside a weight-related comorbidity or a type 2 diabetes diagnosis (reusing the same proxy signal the existing 25–29.9 scoring bonus already used); BMI "not yet calculated" isn't gated either way, since it rules nothing in or out; BMI under 25 never qualifies, regardless of goal or comorbidities. The gate applies uniformly across all three ways a weight-loss-category option can otherwise score (stated goal, or a qualifying cardiovascular/sleep-apnea/MASLD comorbidity), since the underlying trials for all of those indications were themselves conducted in overweight/obese populations. The same gate was added to the independent grader's `weight_mgmt_eligible` for a fair comparison. A first version of the fix left the `reasons` array unchanged when the gate zeroed the score, which meant a fallback-state card could still display "Approved for chronic weight management" — caught via screenshot review and fixed by clearing `reasons` alongside `score` in both the weight-loss and (for consistency) diabetes gates.
+
+| Metric | Value |
+|---|---|
+| Exact match | 87 (87%) |
+| Acceptable alternate | 3 |
+| Mismatch | 7 |
+| No valid answer exists (edge case) | 3 |
+| **Evidence-consistent (exact + acceptable)** | **90%** |
+
+The headline percentage moved down slightly (88%→87% exact, 92%→90% evidence-consistent), and that's expected, not a regression: 3 profiles (#4, #34, #62 — all BMI-under-25, weight-loss-goal, no-diabetes) were previously being silently credited as correct by both the app *and* the ungated grader, when neither actually had a BMI-eligible answer. They're now correctly bucketed as edge cases — a genuine "no GLP-1 is FDA-indicated for this patient" answer, which the app surfaces via its fallback banner rather than a confident pick. One of the fix's side effects was also a net *improvement*: profile #100, a previously-documented Round 2/3 mismatch (Wegovy's off-category comorbidity bonus out-competing a diabetes-specific pick in a prediabetic patient), is now exact — the BMI gate also correctly excludes Wegovy's MASLD-driven bonus for that patient's under-25 BMI, since the trial evidence behind that bonus was likewise established in an overweight/obese population.
+
+The 7 remaining mismatches are unchanged from Round 3 minus #100 (#9, #10, #29, #43, #45, #57, #83) and are the same previously-documented, unrelated categories (contradictory synthetic inputs, off-category CV bonus in prediabetes+ASCVD at a BMI that does clear the gate, and independent-grader limitations).
+
+## Per-drug stratified test finds a real gap: Ozempic recall
+
+On 2026-08-23, a second test design was run alongside the standing 100-case suite: instead of sampling patients uniformly at random, 50 patients were sampled *per drug* (300 total) via rejection sampling against the independent grader — each profile kept only if that specific drug came out as the grader's primary answer for it. This asks a sharper question than the uniform suite: *of patients who should be pointed to Drug X specifically, how often does the app actually surface it?*
+
+Five of six drugs scored 96–98% recall. **Ozempic scored 64%** (32/50, 13 mismatches). Every mismatch shared the same shape: goal = "diabetes" (not weight-loss/both), diabetes status = prediabetes (occasionally none), plus a comorbidity like ASCVD, OSA, or MASLD. In each case a weight-loss-category option (Wegovy/Zepbound) scored the same or more than Ozempic through its own comorbidity-specific bonus (correctly ungated by diabetes status, since SELECT/SURMOUNT-OSA weren't diabetes-specific) while Ozempic's matching bonus was correctly gated to type 2 only (SUSTAIN-6/FLOW were T2D-specific) — leaving Ozempic with only a soft "goal says diabetes" + "prediabetes" signal, which frequently landed on the exact same point total as the off-category option, with ties then broken by catalog array order instead of by what the patient actually asked to manage. The same test also caught 2 smaller instances of the identical mechanism running in the opposite direction (Mounjaro losing a tie to Zepbound; a Rybelsus/Wegovy(pill) oral tie not covered by the earlier oral-tiebreaker fix's exact-goal-match conditions) and one clean scoring gap (Wegovy beating Mounjaro when goal is weight-loss-only but a type 2 diagnosis is present, with no comorbidities to tip it either way).
+
+## Fix applied
+
+Two additions to `scoreOption()`:
+
+1. **A goal-alignment nudge for diabetes-category options** (`+2` when `opt.category === "diabetes" && a.goal === "diabetes"`, not delivery-scoped). This is deliberately asymmetric — there's no mirrored weight-loss-side version — because the independent grader never expects a weight-loss-category drug when goal is diabetes-only (that category is fully excluded from its candidate set in that case), so this nudge can only fix misalignment with the grader, never cause it. A first attempt at a *symmetric* version (mirrored weight-loss-side bonus) was tested and rejected: it reproduced the exact CKD-vs-Wegovy regression the original oral-tiebreaker fix (Round 3) had specifically been narrowed to avoid.
+2. **Extended the existing oral Rybelsus/Wegovy(pill) tiebreaker** (Round 3) to also cover `goal === "both"`, not just exact "weight-loss"/"diabetes" — but only when diabetes status isn't confirmed type 2. A first version without that guard introduced a *new* regression (2 cases: goal "both" + confirmed type 2 + oral, where Rybelsus should win on diagnosis strength, matching the grader's own priority order) — caught by re-running the per-drug suite before shipping, not assumed safe from the injection-only test alone.
+
+Both were validated with the same fast in-process score-extraction harness used for the original delivery-penalty sweep before touching the browser, then confirmed with full Playwright re-runs of all three suites (100-case, a fresh 50-case sample, and the 300-case per-drug set).
+
+## Round 5 result (after the goal-alignment tiebreaker)
+
+| Suite | Before | After |
+|---|---|---|
+| 100-case (exact / evidence-consistent) | 87% / 90% | **88% / 91%** |
+| 50-case fresh sample (exact / evidence-consistent) | 90% / 90% | **94% / 94%** |
+| Per-drug: Wegovy | 98% | 98% |
+| Per-drug: Zepbound | 98% | 98% |
+| Per-drug: Ozempic | 64% | **84%** |
+| Per-drug: Mounjaro | 98% | **100%** |
+| Per-drug: Rybelsus | 96% | 96% |
+| Per-drug: Wegovy (pill) | 96% | **100%** |
+
+Zero regressions across all three suites — every case that passed before still passes. Ozempic's recall improved from 64% to 84% (10 of 13 mismatches fixed); the remaining 3 (#115, #127, #128 in the per-drug set) are cases with a genuine multi-point scoring gap, not a tie, where a weight-loss-category option's *stacked* comorbidity bonuses (e.g. ASCVD + MASLD + CKD together) legitimately reflect strong trial evidence that a modest, safely-scoped nudge shouldn't override — left as a documented limitation rather than force-corrected, the same judgment call already applied to similar cases in Round 2/3. The one remaining Wegovy-target mismatch found by the per-drug test (Wegovy losing to Mounjaro when goal is weight-loss-only + type 2 diagnosis + no comorbidities) is the same asymmetry, left unfixed for the same reason: there's no safe way to add a mirrored weight-loss-side nudge without reproducing the CKD regression.
+
+## Files (per-drug test)
+
+The 300-case per-drug stratified test lives outside the shipped repo, in `per_drug_test_50/` (a scratch/audit directory, not a repo test the app ships with): `generate_per_drug.py` (rejection sampling against the imported grader), `run_app_test_per_drug.js` (Playwright), `compare_per_drug.py` (scoring), and `per_drug_full_results.csv` (all 300 cases).
+
 ## Files
 
 - `validation/generate_profiles.py` — generates the 100 random profiles

@@ -76,7 +76,17 @@ def grade(profile):
     delivery = profile["delivery"]
     co = set(profile["comorbidities"])
 
-    weight_mgmt_eligible = goal in ("weight-loss", "both")
+    # FDA labeling for the weight-management-indicated options requires BMI
+    # >=30, or BMI >=27 plus a weight-related comorbidity (or a type 2
+    # diabetes diagnosis) -- not simply a stated wish to lose weight. The
+    # "25-29.9" bucket straddles the 27 cutoff, so it only counts as meeting
+    # the threshold when paired with a qualifying comorbidity/diagnosis;
+    # "not yet calculated" can't be ruled in or out, so it isn't gated.
+    has_weight_related_comorbidity = bool(co - {"none"}) or diabetes == "type2"
+    bmi_qualifies_weight_mgmt = bmi in ("30-34", "35plus", "unsure") or (
+        bmi == "25-29" and has_weight_related_comorbidity
+    )
+    weight_mgmt_eligible = goal in ("weight-loss", "both") and bmi_qualifies_weight_mgmt
     # diabetes-category drugs are approved for type 2 diabetes; prediabetes is
     # only supportively discussed (NEJM review) as a possible future/preventive
     # use, not an approved indication, so it's treated as a soft/eligible signal
@@ -98,11 +108,14 @@ def grade(profile):
         return {
             "primary": None,
             "acceptable": set(),
-            "edge_case": "No approved option matches both the stated goal and delivery "
-                          "preference (most likely: oral delivery requested for a "
-                          "diabetes goal outside type 2/prediabetes, or another "
-                          "combination with no approved oral option -- Rybelsus is "
-                          "diabetes-only and Wegovy (pill) is weight-management-only).",
+            "edge_case": "No approved option matches this combination of goal, BMI, "
+                          "diabetes status, and delivery preference -- either no oral "
+                          "option fits the stated goal (Rybelsus is diabetes-only, "
+                          "Wegovy (pill) is weight-management-only), or the patient "
+                          "doesn't meet the BMI/diabetes threshold for any catalog "
+                          "option's approved indication at all. The latter can be a "
+                          "genuinely correct 'no GLP-1 is indicated' answer, not "
+                          "necessarily a gap in the catalog.",
         }
 
     # --- Priority 1: ASCVD -> cardiovascular-risk-reduction indication ---
