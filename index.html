@@ -285,6 +285,7 @@
             <div class="cta-bar cta-bar-split">
               <button type="button" class="btn btn-primary" id="talkBtn">Discuss with patient</button>
               <button type="button" class="btn btn-ghost" id="editBtn">Review &amp; edit answers</button>
+              <button type="button" class="btn btn-ghost" id="startOverBtn">Start over</button>
               <p class="brand-credit">MDGadgetz LLC</p>
             </div>
           </section>
@@ -1314,6 +1315,18 @@
   document.getElementById("startBtn").addEventListener("click", function () { goRelative(1); });
   document.getElementById("editBtn").addEventListener("click", function () { editReturnTo = null; setScreen("review"); syncAllSelections(); });
   document.getElementById("talkBtn").addEventListener("click", function () { showToast("Marked for discussion with patient."); });
+
+  function resetApp() {
+    answers.goal = null;
+    answers.bmiRange = null;
+    answers.diabetesStatus = null;
+    answers.delivery = null;
+    answers.comorbidities = [];
+    editReturnTo = null;
+    syncAllSelections();
+    setScreen("intro");
+  }
+  document.getElementById("startOverBtn").addEventListener("click", resetApp);
 
   function syncAllSelections() {
     questionSteps.forEach(function (step) {
