@@ -62,8 +62,12 @@ Colors are checked against WCAG AA (4.5:1 minimum for body and small text); inte
 
 ## Disclaimer
 
-This is a prototype for design and educational purposes. It is not a medical device, is not FDA-cleared, and must not be used as the sole basis for a prescribing decision. Medication indications and trial findings summarized here can change as new evidence emerges — always confirm current labeling and guidelines before applying them to patient care.
+This tool is decision support only. It is not a medical device and has not been cleared or reviewed by the FDA. It summarizes published indications and trial evidence, and does not replace clinical judgment, a full review of the patient's chart, contraindication and drug-interaction screening, or shared decision-making with the patient. The prescribing clinician is solely responsible for all treatment decisions. Medication indications and trial findings summarized here can change as new evidence emerges — always confirm current FDA labeling and guidelines before applying them to patient care. The app repeats a version of this disclaimer on its own intro and results screens.
 
 ## License
 
-See [LICENSE](LICENSE).
+See [LICENSE](LICENSE). Copyright © 2026 MDGadgetz LLC.
+
+## Developer
+
+Developed by MDGadgetz LLC.
