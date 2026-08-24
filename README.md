@@ -65,6 +65,8 @@ Colors are checked against WCAG AA (4.5:1 minimum for body and small text); inte
 
 This tool is decision support only. It is not a medical device and has not been cleared or reviewed by the FDA. It summarizes published indications and trial evidence, and does not replace clinical judgment, a full review of the patient's chart, contraindication and drug-interaction screening, or shared decision-making with the patient. The prescribing clinician is solely responsible for all treatment decisions. Medication indications and trial findings summarized here can change as new evidence emerges — always confirm current FDA labeling and guidelines before applying them to patient care. The app repeats a version of this disclaimer on its own intro and results screens.
 
+This application is a clinical decision support tool intended to help licensed healthcare professionals organize and evaluate clinical information. It does not diagnose, treat, cure, or prevent any disease, and its outputs are not a substitute for clinical judgment. All recommendations must be independently reviewed against the underlying data by the treating clinician before any decision is made, and final responsibility for patient care rests with the provider. This tool is intended for use by licensed healthcare professionals only and is not intended for use by patients or caregivers for self-diagnosis or self-treatment, or for emergency or life-threatening situations. It has not been cleared or approved by the FDA.
+
 ## License
 
 See [LICENSE](LICENSE). Copyright © 2026 MDGadgetz LLC.
