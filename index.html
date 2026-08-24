@@ -267,9 +267,15 @@
           <section class="screen" data-screen="results" aria-hidden="true">
             <div class="screen-inner results-inner">
               <p class="step-eyebrow">Results</p>
-              <h1 class="h2">Options to consider for this patient</h1>
+              <h1 class="h2" id="resultsHeading">Options to consider for this patient</h1>
               <p class="sub" id="resultsSummary">Based on the inputs, here's how these GLP&#8209;1 options line up clinically.</p>
               <div class="result-fallback-banner" id="resultFallbackBanner" hidden>No option is a strong match for this exact combination. The choices below are the closest available, and the reasons shown reflect partial matches only &mdash; review carefully.</div>
+              <div class="result-not-indicated" id="resultNotIndicated" hidden>
+                <span class="result-not-indicated-icon" aria-hidden="true"><svg class="icon"><use href="#i-scale"/></svg></span>
+                <div class="result-not-indicated-title">Drug therapy is not indicated</div>
+                <p class="result-not-indicated-body">Based on the treatment goal, BMI, and health history entered, no GLP&#8209;1 receptor agonist in this catalog meets FDA&#8209;approved criteria for this patient &mdash; so none are shown. Weight&#8209;management indications require a BMI of 30 or higher, or 27&ndash;29.9 with a qualifying weight&#8209;related comorbidity or type&nbsp;2 diabetes; diabetes&#8209;category indications require a stated diabetes goal or a diabetes/prediabetes diagnosis. Neither is met here.</p>
+                <p class="result-not-indicated-note">Consider non&#8209;pharmacologic management, and reassess if the BMI, diagnosis, or comorbidities change.</p>
+              </div>
               <div class="result-list" id="resultList" aria-live="polite"></div>
               <p class="disclaimer">Decision support only. This tool is not a medical device and has not been cleared or reviewed by the FDA. It summarizes published indications and trial evidence, and does not replace clinical judgment, a full review of the patient's chart, contraindication and drug-interaction screening, or shared decision-making with the patient. The prescribing clinician is solely responsible for all treatment decisions. Approved indications and evidence can change &mdash; always confirm current FDA labeling before prescribing.</p>
               <details class="references">
@@ -893,6 +899,52 @@
   }
   .result-fallback-banner[hidden] {
     display: none;
+  }
+  .result-not-indicated {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--sp-5) var(--sp-4);
+    margin-bottom: var(--sp-5);
+    box-shadow: var(--shadow-1);
+  }
+  .result-not-indicated[hidden] {
+    display: none;
+  }
+  .result-not-indicated-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-md);
+    background: var(--surface-selected);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .result-not-indicated-icon .icon { width: 22px; height: 22px; }
+  .result-not-indicated-title {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .result-not-indicated-body {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .result-not-indicated-note {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--border);
+    padding-top: var(--sp-3);
+    width: 100%;
   }
   .result-list { display: flex; flex-direction: column; gap: var(--sp-4); margin-bottom: var(--sp-5); }
   .result-card {
@@ -1541,6 +1593,35 @@
     }
   ];
 
+  // Whether opt is even FDA-indicated for this patient at all, independent of
+  // score/ranking. Mirrors the two gates inside scoreOption() below (kept as
+  // a separate, side-effect-free function so renderResults() can use it to
+  // decide whether ANY catalog option belongs on screen, before scoring or
+  // ties enter the picture). If no catalog option is indicated, the result
+  // screen shows a "drug therapy is not indicated" state instead of the
+  // closest-available fallback — see renderResults().
+  function isIndicated(opt, a) {
+    if (opt.category === "weight-loss") {
+      var hasWeightRelatedComorbidity =
+        (a.comorbidities.length && a.comorbidities[0] !== "none") ||
+        a.diabetesStatus === "type2";
+      var weightMgmtBmiQualifies =
+        a.bmiRange === "30-34" || a.bmiRange === "35plus" || a.bmiRange === "unsure" ||
+        (a.bmiRange === "25-29" && hasWeightRelatedComorbidity);
+      return weightMgmtBmiQualifies && (
+        a.goal === "weight-loss" || a.goal === "both" ||
+        (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) ||
+        (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) ||
+        (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit)
+      );
+    }
+    if (opt.category === "diabetes") {
+      return a.goal === "diabetes" || a.goal === "both" ||
+        a.diabetesStatus === "type2" || a.diabetesStatus === "prediabetes";
+    }
+    return true;
+  }
+
   function scoreOption(opt, a) {
     var score = 0;
     var reasons = [];
@@ -1733,10 +1814,30 @@
   function renderResults() {
     var list = document.getElementById("resultList");
     var summary = document.getElementById("resultsSummary");
+    var heading = document.getElementById("resultsHeading");
     var fallbackBanner = document.getElementById("resultFallbackBanner");
+    var notIndicatedCard = document.getElementById("resultNotIndicated");
     list.innerHTML = "";
 
-    var scored = CATALOG.map(function (opt) {
+    // If NO catalog option is even FDA-indicated for this patient (e.g. a
+    // weight-loss-only goal at a BMI that doesn't clear the weight-management
+    // threshold, with no diabetes goal or diagnosis to fall back on), this is
+    // a genuine "no GLP-1 is appropriate here" case — not a low-confidence
+    // ranking problem. Show that plainly instead of surfacing any drug,
+    // including via the closest-available fallback below.
+    var indicatedCatalog = CATALOG.filter(function (opt) { return isIndicated(opt, answers); });
+
+    if (indicatedCatalog.length === 0) {
+      fallbackBanner.hidden = true;
+      notIndicatedCard.hidden = false;
+      heading.textContent = "No GLP‑1 option is indicated";
+      summary.textContent = "Based on the inputs, no GLP‑1 option is FDA‑indicated for this patient.";
+      return;
+    }
+    notIndicatedCard.hidden = true;
+    heading.textContent = "Options to consider for this patient";
+
+    var scored = indicatedCatalog.map(function (opt) {
       var r = scoreOption(opt, answers);
       return { opt: opt, score: r.score, reasons: r.reasons };
     }).filter(function (r) { return r.score > 0; })
@@ -1745,7 +1846,7 @@
 
     var isFallback = scored.length === 0;
     if (isFallback) {
-      scored = CATALOG.map(function (opt) {
+      scored = indicatedCatalog.map(function (opt) {
         var r = scoreOption(opt, answers);
         return { opt: opt, score: r.score, reasons: r.reasons };
       }).sort(function (a, b) { return b.score - a.score; }).slice(0, 2);
