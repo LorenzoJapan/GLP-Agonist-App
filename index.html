@@ -1507,7 +1507,7 @@
       ckdBenefit: false,
       liverBenefit: false,
       rankedTopA1c: true,
-      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control, and to help lower cardiovascular risk in adults with type 2 diabetes and established heart disease.",
+      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control, and to help lower cardiovascular risk in adults with type 2 diabetes who are at high risk for cardiovascular events.",
       dosing: "Starts at 2.5 mg weekly for 4 weeks, then increases in 2.5 mg increments every 4 weeks as tolerated, toward a maintenance dose of 5–15 mg weekly.",
       sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Injection site reactions", "Risk of hypoglycemia if combined with insulin or sulfonylureas"],
       notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to tirzepatide", "Pregnancy", "History of diabetic retinopathy (monitor closely if present)"]
@@ -1642,6 +1642,21 @@
     // category. Wegovy's cardiovascular evidence (SELECT) was in adults with
     // obesity/overweight and did not require a diabetes diagnosis, so it
     // stays ungated.
+    //
+    // Note on label scope vs. this app's data model: the FDA-approved label
+    // for Mounjaro's CV indication (per Lilly's own release) covers adults
+    // with type 2 diabetes "at high risk" for cardiovascular events --
+    // somewhat broader than "established ASCVD" (SURPASS-CVOT's actual
+    // enrollment criterion, and the only comorbidity this app collects under
+    // "cardiovascular"). Every patient this app flags with the ASCVD
+    // checkbox is unambiguously covered by that label, so gating the bonus
+    // on it is always correct; it's just conservative -- a type 2 diabetes
+    // patient who is "high risk" on other grounds (e.g. multiple risk
+    // factors) but doesn't have diagnosed ASCVD is also label-eligible for
+    // Mounjaro's CV benefit, but this app has no comorbidity field to
+    // capture that case, so it won't surface the bonus for them. Same
+    // conservative gate as the other three CV-benefit options, whose own
+    // labels do specifically require established disease.
     //
     // Not every cvBenefit option's evidence is the same strength: SELECT
     // (Wegovy), SUSTAIN-6 (Ozempic), and SOUL (Rybelsus) are all

@@ -29,16 +29,21 @@ Evidence this logic is grounded in:
   [5] Nicholls et al., for the SURPASS-CVOT Investigators. N Engl J Med
       2025;393(24):2409-20 (SURPASS-CVOT)
       -> Mounjaro: FDA-approved (2026) to help lower cardiovascular risk in
-         adults with T2D and established ASCVD, based on a trial of
-         tirzepatide vs. dulaglutide (an active GLP-1 comparator with its own
-         placebo-superiority CV evidence from REWIND) in T2D + established
-         ASCVD -- noninferior for the composite of CV death/MI/stroke (HR
+         adults with type 2 diabetes "at high risk" for cardiovascular events
+         (Lilly's own label language) -- broader than "established ASCVD."
+         The pivotal trial itself enrolled T2D + established ASCVD
+         specifically, comparing tirzepatide vs. dulaglutide (an active GLP-1
+         comparator with its own placebo-superiority CV evidence from
+         REWIND) -- noninferior for the composite of CV death/MI/stroke (HR
          0.92, 95% CI 0.83-1.01) but did NOT reach the prespecified
          superiority threshold (P=0.09). This is weaker evidence than
          Ozempic's SUSTAIN-6 or Rybelsus's SOUL trial, both placebo-controlled
          superiority results, so Mounjaro is graded as an acceptable
          CV-indicated alternate for T2D+ASCVD, not the primary pick, when
-         Ozempic is also eligible.
+         Ozempic is also eligible. This module only models the ASCVD
+         (established-disease) comorbidity, which is a strict subset of
+         Mounjaro's actual "high risk" label -- always a correct match, just
+         not exhaustive of everyone the real label covers.
       -> Zepbound: moderate-to-severe obstructive sleep apnea with obesity
          (SURMOUNT-OSA); Wegovy and Zepbound both showed improvement in
          MASLD-related liver fat/fibrosis.
