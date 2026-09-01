@@ -267,18 +267,11 @@
           <section class="screen" data-screen="results" aria-hidden="true">
             <div class="screen-inner results-inner">
               <p class="step-eyebrow">Results</p>
-              <h1 class="h2" id="resultsHeading">Options to consider for this patient</h1>
+              <h1 class="h2">Options to consider for this patient</h1>
               <p class="sub" id="resultsSummary">Based on the inputs, here's how these GLP&#8209;1 options line up clinically.</p>
               <div class="result-fallback-banner" id="resultFallbackBanner" hidden>No option is a strong match for this exact combination. The choices below are the closest available, and the reasons shown reflect partial matches only &mdash; review carefully.</div>
-              <div class="result-not-indicated" id="resultNotIndicated" hidden>
-                <span class="result-not-indicated-icon" aria-hidden="true"><svg class="icon"><use href="#i-scale"/></svg></span>
-                <div class="result-not-indicated-title">Drug therapy is not indicated</div>
-                <p class="result-not-indicated-body">Based on the treatment goal, BMI, and health history entered, no GLP&#8209;1 receptor agonist in this catalog meets FDA&#8209;approved criteria for this patient &mdash; so none are shown. Weight&#8209;management indications require a BMI of 30 or higher, or 27&ndash;29.9 with a qualifying weight&#8209;related comorbidity or type&nbsp;2 diabetes; diabetes&#8209;category indications require a stated diabetes goal or a diabetes/prediabetes diagnosis. Neither is met here.</p>
-                <p class="result-not-indicated-note">Consider non&#8209;pharmacologic management, and reassess if the BMI, diagnosis, or comorbidities change.</p>
-              </div>
               <div class="result-list" id="resultList" aria-live="polite"></div>
               <p class="disclaimer">Decision support only. This tool is not a medical device and has not been cleared or reviewed by the FDA. It summarizes published indications and trial evidence, and does not replace clinical judgment, a full review of the patient's chart, contraindication and drug-interaction screening, or shared decision-making with the patient. The prescribing clinician is solely responsible for all treatment decisions. Approved indications and evidence can change &mdash; always confirm current FDA labeling before prescribing.</p>
-              <p class="disclaimer">This application is a clinical decision support tool intended to help licensed healthcare professionals organize and evaluate clinical information. It does not diagnose, treat, cure, or prevent any disease, and its outputs are not a substitute for clinical judgment. All recommendations must be independently reviewed against the underlying data by the treating clinician before any decision is made, and final responsibility for patient care rests with the provider. This tool is intended for use by licensed healthcare professionals only and is not intended for use by patients or caregivers for self-diagnosis or self-treatment, or for emergency or life-threatening situations. It has not been cleared or approved by the FDA.</p>
               <details class="references">
                 <summary class="references-title">References<svg class="icon icon-sm references-chevron"><use href="#i-chevron-right"/></svg></summary>
                 <ol class="reference-list">
@@ -286,6 +279,7 @@
                   <li>Yao H, Zhang A, Li D, Wu Y, Wang CZ, Wan JY, et al. Comparative effectiveness of GLP-1 receptor agonists on glycaemic control, body weight, and lipid profile for type 2 diabetes: systematic review and network meta-analysis. BMJ. 2024;384:e076410. doi:<a href="https://doi.org/10.1136/bmj-2023-076410" target="_blank" rel="noopener noreferrer">10.1136/bmj-2023-076410</a></li>
                   <li>Rosen CJ, Ingelfinger JR. GLP-1 receptor agonists. N Engl J Med. 2026;394(13):1313&ndash;24. doi:<a href="https://doi.org/10.1056/NEJMra2500106" target="_blank" rel="noopener noreferrer">10.1056/NEJMra2500106</a></li>
                   <li>Wharton S, Lingvay I, Bogdanski P, Duque do Vale R, Jacob S, Karlsson T, et al; for the OASIS 4 Study Group. Oral semaglutide at a dose of 25 mg in adults with overweight or obesity. N Engl J Med. 2025;393(11):1077&ndash;87. doi:<a href="https://doi.org/10.1056/NEJMoa2500969" target="_blank" rel="noopener noreferrer">10.1056/NEJMoa2500969</a></li>
+                  <li>Nicholls SJ, Pavo I, Bhatt DL, Buse JB, Del Prato S, Kahn SE, et al; for the SURPASS-CVOT Investigators. Cardiovascular outcomes with tirzepatide versus dulaglutide in type 2 diabetes. N Engl J Med. 2025;393(24):2409&ndash;20. doi:<a href="https://doi.org/10.1056/NEJMoa2505928" target="_blank" rel="noopener noreferrer">10.1056/NEJMoa2505928</a></li>
                 </ol>
               </details>
             </div>
@@ -901,52 +895,6 @@
   .result-fallback-banner[hidden] {
     display: none;
   }
-  .result-not-indicated {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-3);
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--r-lg);
-    padding: var(--sp-5) var(--sp-4);
-    margin-bottom: var(--sp-5);
-    box-shadow: var(--shadow-1);
-  }
-  .result-not-indicated[hidden] {
-    display: none;
-  }
-  .result-not-indicated-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: var(--r-md);
-    background: var(--surface-selected);
-    color: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .result-not-indicated-icon .icon { width: 22px; height: 22px; }
-  .result-not-indicated-title {
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
-  .result-not-indicated-body {
-    margin: 0;
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: var(--text-secondary);
-  }
-  .result-not-indicated-note {
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--text-tertiary);
-    border-top: 1px solid var(--border);
-    padding-top: var(--sp-3);
-    width: 100%;
-  }
   .result-list { display: flex; flex-direction: column; gap: var(--sp-4); margin-bottom: var(--sp-5); }
   .result-card {
     background: var(--surface);
@@ -1503,6 +1451,7 @@
       form: "injection",
       category: "weight-loss",
       cvBenefit: true,
+      cvBenefitEstablished: true,
       sleepApneaBenefit: false,
       ckdBenefit: false,
       liverBenefit: true,
@@ -1519,6 +1468,7 @@
       form: "injection",
       category: "weight-loss",
       cvBenefit: false,
+      cvBenefitEstablished: false,
       sleepApneaBenefit: true,
       ckdBenefit: false,
       liverBenefit: true,
@@ -1535,6 +1485,7 @@
       form: "injection",
       category: "diabetes",
       cvBenefit: true,
+      cvBenefitEstablished: true,
       sleepApneaBenefit: false,
       ckdBenefit: true,
       liverBenefit: false,
@@ -1550,12 +1501,13 @@
       generic: "tirzepatide",
       form: "injection",
       category: "diabetes",
-      cvBenefit: false,
+      cvBenefit: true,
+      cvBenefitEstablished: false,
       sleepApneaBenefit: false,
       ckdBenefit: false,
       liverBenefit: false,
       rankedTopA1c: true,
-      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control.",
+      desc: "Once-weekly injection approved for type 2 diabetes, used alongside diet and exercise to improve blood sugar control, and to help lower cardiovascular risk in adults with type 2 diabetes and established heart disease.",
       dosing: "Starts at 2.5 mg weekly for 4 weeks, then increases in 2.5 mg increments every 4 weeks as tolerated, toward a maintenance dose of 5–15 mg weekly.",
       sideEffects: ["Nausea, vomiting, diarrhea, constipation", "Decreased appetite", "Injection site reactions", "Risk of hypoglycemia if combined with insulin or sulfonylureas"],
       notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to tirzepatide", "Pregnancy", "History of diabetic retinopathy (monitor closely if present)"]
@@ -1567,6 +1519,7 @@
       form: "oral",
       category: "diabetes",
       cvBenefit: true,
+      cvBenefitEstablished: true,
       sleepApneaBenefit: false,
       ckdBenefit: false,
       liverBenefit: false,
@@ -1583,6 +1536,7 @@
       form: "oral",
       category: "weight-loss",
       cvBenefit: true,
+      cvBenefitEstablished: true,
       sleepApneaBenefit: false,
       ckdBenefit: false,
       liverBenefit: false,
@@ -1593,35 +1547,6 @@
       notFor: ["Personal or family history of medullary thyroid carcinoma or MEN 2", "Known hypersensitivity to semaglutide", "Pregnancy", "History of pancreatitis (use caution)"]
     }
   ];
-
-  // Whether opt is even FDA-indicated for this patient at all, independent of
-  // score/ranking. Mirrors the two gates inside scoreOption() below (kept as
-  // a separate, side-effect-free function so renderResults() can use it to
-  // decide whether ANY catalog option belongs on screen, before scoring or
-  // ties enter the picture). If no catalog option is indicated, the result
-  // screen shows a "drug therapy is not indicated" state instead of the
-  // closest-available fallback — see renderResults().
-  function isIndicated(opt, a) {
-    if (opt.category === "weight-loss") {
-      var hasWeightRelatedComorbidity =
-        (a.comorbidities.length && a.comorbidities[0] !== "none") ||
-        a.diabetesStatus === "type2";
-      var weightMgmtBmiQualifies =
-        a.bmiRange === "30-34" || a.bmiRange === "35plus" || a.bmiRange === "unsure" ||
-        (a.bmiRange === "25-29" && hasWeightRelatedComorbidity);
-      return weightMgmtBmiQualifies && (
-        a.goal === "weight-loss" || a.goal === "both" ||
-        (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) ||
-        (a.comorbidities.indexOf("sleep-apnea") > -1 && opt.sleepApneaBenefit) ||
-        (a.comorbidities.indexOf("fatty-liver") > -1 && opt.liverBenefit)
-      );
-    }
-    if (opt.category === "diabetes") {
-      return a.goal === "diabetes" || a.goal === "both" ||
-        a.diabetesStatus === "type2" || a.diabetesStatus === "prediabetes";
-    }
-    return true;
-  }
 
   function scoreOption(opt, a) {
     var score = 0;
@@ -1707,15 +1632,32 @@
       if (a.bmiRange === "25-29" && a.comorbidities.length && a.comorbidities[0] !== "none") score += 1;
     }
 
-    // The cardiovascular-risk-reduction evidence for the two diabetes-category
-    // options (Ozempic's SUSTAIN-6, Rybelsus's SOUL trial) was established in
-    // people with type 2 diabetes specifically, so that bonus is scoped to
-    // diabetesStatus "type2" for this category. Wegovy's cardiovascular
-    // evidence (SELECT) was in adults with obesity/overweight and did not
-    // require a diabetes diagnosis, so it stays ungated.
+    // The cardiovascular-risk-reduction evidence for the diabetes-category
+    // options (Ozempic's SUSTAIN-6, Rybelsus's SOUL trial, Mounjaro's
+    // SURPASS-CVOT trial) was established in people with type 2 diabetes
+    // specifically (SURPASS-CVOT enrolled type 2 diabetes with established
+    // ASCVD, comparing tirzepatide to dulaglutide -- noninferior for the
+    // composite of cardiovascular death, MI, or stroke, HR 0.92, 95% CI
+    // 0.83-1.01), so that bonus is scoped to diabetesStatus "type2" for this
+    // category. Wegovy's cardiovascular evidence (SELECT) was in adults with
+    // obesity/overweight and did not require a diabetes diagnosis, so it
+    // stays ungated.
+    //
+    // Not every cvBenefit option's evidence is the same strength: SELECT
+    // (Wegovy), SUSTAIN-6 (Ozempic), and SOUL (Rybelsus) are all
+    // placebo-controlled trials that reached statistical superiority.
+    // SURPASS-CVOT (Mounjaro) was a noninferiority-to-dulaglutide trial that
+    // did NOT reach its prespecified superiority threshold (P=0.09) --
+    // dulaglutide itself has separate placebo-superiority evidence (REWIND),
+    // so tirzepatide's approval rests on a step removed from a direct,
+    // placebo-controlled superiority result. cvBenefitEstablished captures
+    // that distinction: a smaller bonus for noninferiority-only evidence, so
+    // an unrelated efficacy-ranking bonus elsewhere (rankedTopA1c) can't by
+    // itself flip a same-indication tie against the more directly-evidenced
+    // option.
     if (a.comorbidities.indexOf("cardiovascular") > -1 && opt.cvBenefit) {
       if (opt.category !== "diabetes" || a.diabetesStatus === "type2") {
-        score += 3;
+        score += opt.cvBenefitEstablished ? 3 : 2;
         reasons.push("Also shown to help lower cardiovascular risk in adults with ASCVD");
       }
     }
@@ -1815,30 +1757,10 @@
   function renderResults() {
     var list = document.getElementById("resultList");
     var summary = document.getElementById("resultsSummary");
-    var heading = document.getElementById("resultsHeading");
     var fallbackBanner = document.getElementById("resultFallbackBanner");
-    var notIndicatedCard = document.getElementById("resultNotIndicated");
     list.innerHTML = "";
 
-    // If NO catalog option is even FDA-indicated for this patient (e.g. a
-    // weight-loss-only goal at a BMI that doesn't clear the weight-management
-    // threshold, with no diabetes goal or diagnosis to fall back on), this is
-    // a genuine "no GLP-1 is appropriate here" case — not a low-confidence
-    // ranking problem. Show that plainly instead of surfacing any drug,
-    // including via the closest-available fallback below.
-    var indicatedCatalog = CATALOG.filter(function (opt) { return isIndicated(opt, answers); });
-
-    if (indicatedCatalog.length === 0) {
-      fallbackBanner.hidden = true;
-      notIndicatedCard.hidden = false;
-      heading.textContent = "No GLP‑1 option is indicated";
-      summary.textContent = "Based on the inputs, no GLP‑1 option is FDA‑indicated for this patient.";
-      return;
-    }
-    notIndicatedCard.hidden = true;
-    heading.textContent = "Options to consider for this patient";
-
-    var scored = indicatedCatalog.map(function (opt) {
+    var scored = CATALOG.map(function (opt) {
       var r = scoreOption(opt, answers);
       return { opt: opt, score: r.score, reasons: r.reasons };
     }).filter(function (r) { return r.score > 0; })
@@ -1847,7 +1769,7 @@
 
     var isFallback = scored.length === 0;
     if (isFallback) {
-      scored = indicatedCatalog.map(function (opt) {
+      scored = CATALOG.map(function (opt) {
         var r = scoreOption(opt, answers);
         return { opt: opt, score: r.score, reasons: r.reasons };
       }).sort(function (a, b) { return b.score - a.score; }).slice(0, 2);

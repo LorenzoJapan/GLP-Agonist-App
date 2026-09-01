@@ -26,6 +26,19 @@ Evidence this logic is grounded in:
       -> Rybelsus: CV risk reduction in adults with T2D (SOUL trial) -- newer,
          superiority result, supersedes the older PIONEER-6 noninferiority-only
          finding.
+  [5] Nicholls et al., for the SURPASS-CVOT Investigators. N Engl J Med
+      2025;393(24):2409-20 (SURPASS-CVOT)
+      -> Mounjaro: FDA-approved (2026) to help lower cardiovascular risk in
+         adults with T2D and established ASCVD, based on a trial of
+         tirzepatide vs. dulaglutide (an active GLP-1 comparator with its own
+         placebo-superiority CV evidence from REWIND) in T2D + established
+         ASCVD -- noninferior for the composite of CV death/MI/stroke (HR
+         0.92, 95% CI 0.83-1.01) but did NOT reach the prespecified
+         superiority threshold (P=0.09). This is weaker evidence than
+         Ozempic's SUSTAIN-6 or Rybelsus's SOUL trial, both placebo-controlled
+         superiority results, so Mounjaro is graded as an acceptable
+         CV-indicated alternate for T2D+ASCVD, not the primary pick, when
+         Ozempic is also eligible.
       -> Zepbound: moderate-to-severe obstructive sleep apnea with obesity
          (SURMOUNT-OSA); Wegovy and Zepbound both showed improvement in
          MASLD-related liver fat/fibrosis.
@@ -124,6 +137,8 @@ def grade(profile):
         if diabetes == "type2":
             if "Ozempic" in candidates:
                 cv_candidates.append("Ozempic")
+            if "Mounjaro" in candidates:
+                cv_candidates.append("Mounjaro")
             if "Rybelsus" in candidates:
                 cv_candidates.append("Rybelsus")
         if "Wegovy" in candidates:
@@ -136,6 +151,12 @@ def grade(profile):
             # doesn't force a single winner -- treat all as acceptable, but prefer
             # the diabetes-specific injectable (Ozempic) as primary since it also
             # picks up glycemic control and, often, CKD risk in the same patient.
+            # Ozempic is also preferred as primary over Mounjaro specifically
+            # because SUSTAIN-6 was a placebo-controlled superiority result,
+            # while Mounjaro's SURPASS-CVOT was a noninferiority-to-dulaglutide
+            # result that did not reach superiority (P=0.09) -- Mounjaro is a
+            # legitimate, FDA-approved, evidence-consistent alternate here, just
+            # not graded as the strongest evidence when a choice must be made.
             # Between the two Wegovy forms (only both-eligible when delivery is
             # "either"), the injectable is primary since it's the original,
             # longer-established CV-outcomes formulation (SELECT); the oral pill

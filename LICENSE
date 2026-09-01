@@ -25,14 +25,3 @@ SOFTWARE.
 This software is a design/educational prototype and is not a medical device.
 It is not intended to diagnose, treat, cure, or prevent any disease, and must
 not be used as the sole basis for a clinical or prescribing decision.
-
-This application is a clinical decision support tool intended to help licensed
-healthcare professionals organize and evaluate clinical information. It does
-not diagnose, treat, cure, or prevent any disease, and its outputs are not a
-substitute for clinical judgment. All recommendations must be independently
-reviewed against the underlying data by the treating clinician before any
-decision is made, and final responsibility for patient care rests with the
-provider. This tool is intended for use by licensed healthcare professionals
-only and is not intended for use by patients or caregivers for self-diagnosis
-or self-treatment, or for emergency or life-threatening situations. It has not
-been cleared or approved by the FDA.
